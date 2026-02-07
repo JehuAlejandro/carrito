@@ -1,3 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>SUPERVIN 208 APERLADO</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+}
+
+.contenedor {
+  max-width: 500px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+h2 {
+  text-align: center;
+}
+
+button {
+  padding: 8px;
+  margin: 5px 0;
+  width: 100%;
+  cursor: pointer;
+}
+
+.whatsapp {
+  background: #25D366;
+  color: white;
+  border: none;
+  font-size: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+<h2>🛒 SUPERVIN 208 APERLADO</h2>
+
+<!-- BOTONES -->
+<button onclick="agregar('SUPERVIN 208 APERLADO 19L', 3176)">
+Agregar 19L – $3,176
+</button>
+
+<button onclick="agregar('SUPERVIN 208 APERLADO 4L', 722)">
+Agregar 4L – $722
+</button>
+
+<button onclick="agregar('SUPERVIN 208 APERLADO 1L', 205)">
+Agregar 1L – $205
+</button>
+
+<hr>
+
+<h3>Carrito</h3>
+<ul id="lista"></ul>
+
+<p><strong>Total: $<span id="total">0</span></strong></p>
+
+<button class="whatsapp" onclick="enviar()">
+Enviar pedido por WhatsApp
+</button>
+
+</div>
+
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
@@ -21,8 +93,6 @@ function agregar(nombre, precio) {
 function mostrar() {
   const lista = document.getElementById("lista");
   const totalSpan = document.getElementById("total");
-
-  if (!lista || !totalSpan) return;
 
   lista.innerHTML = "";
   let total = 0;
@@ -58,10 +128,9 @@ function enviar() {
 
 document.addEventListener("DOMContentLoaded", mostrar);
 </script>
-<button onclick="agregar('SUPERVIN 208 APERLADO 19L', 3176)">Agregar</button>
-<button onclick="agregar('SUPERVIN 208 APERLADO 4L', 722)">Agregar</button>
-<button onclick="agregar('SUPERVIN 208 APERLADO 1L', 205)">Agregar</button>
 
+</body>
+</html>
 
 
 
