@@ -1,84 +1,37 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>SUPERVIN 208 APERLADO</title>
-
-<style>
-body { font-family: Arial; background:#f5f5f5; }
-.tienda { max-width:500px; margin:auto; background:white; padding:15px; }
-.producto { border-bottom:1px solid #ccc; padding:10px 0; }
-button { padding:6px 10px; margin-top:5px; cursor:pointer; }
-.whatsapp {
-  background:#25D366;
-  color:white;
-  border:none;
-  width:100%;
-  padding:12px;
-  font-size:16px;
-  margin-top:10px;
-}
-</style>
-</head>
-
-<body>
-
-<div class="tienda">
-
-<h2>🛒 SUPERVIN 210 BLANCO OSTIÓN</h2>
-
-<div class="producto">
-<strong>19L</strong><br>$3,176<br>
-<button onclick="agregar('SUPERVIN 210 BLANCO OSTIÓN 19L', 3176)">Agregar</button>
-</div>
-
-<div class="producto">
-<strong>4L</strong><br>$722<br>
-<button onclick="agregar('SUPERVIN 210 BLANCO OSTIÓN 4L', 722)">Agregar</button>
-</div>
-
-<div class="producto">
-<strong>1L</strong><br>$205<br>
-<button onclick="agregar('SUPERVIN 210 BLANCO OSTIÓN 1L', 205)">Agregar</button>
-</div>
-
-<h3>🧺 Canasta</h3>
-<ul id="lista"></ul>
-<p><strong>Total:</strong> $<span id="total">0</span></p>
-
-<button class="whatsapp" onclick="enviar()">📲 Comprar por WhatsApp</button>
-
-</div>
-
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-function guardar() {
+function guardarCarrito() {
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
 function agregar(nombre, precio) {
-  const existe = carrito.find(p => p.nombre === nombre);
-  if (existe) {
-    existe.cantidad++;
+  const existente = carrito.find(p => p.nombre === nombre);
+
+  if (existente) {
+    existente.cantidad += 1;
   } else {
     carrito.push({ nombre, precio, cantidad: 1 });
   }
-  guardar();
+
+  guardarCarrito();
   mostrar();
 }
 
 function mostrar() {
   const lista = document.getElementById("lista");
   const totalSpan = document.getElementById("total");
-  if (!lista) return;
+
+  if (!lista || !totalSpan) return;
 
   lista.innerHTML = "";
   let total = 0;
 
   carrito.forEach(p => {
     total += p.precio * p.cantidad;
-    lista.innerHTML += `<li>${p.nombre} x${p.cantidad} - $${p.precio * p.cantidad}</li>`;
+    lista.innerHTML += `
+      <li>${p.nombre} x${p.cantidad} - $${p.precio * p.cantidad}</li>
+    `;
   });
 
   totalSpan.innerText = total;
@@ -99,14 +52,16 @@ function enviar() {
   });
 
   mensaje += `%0A*Total:* $${total}`;
+
   window.open("https://wa.me/527771537270?text=" + mensaje, "_blank");
 }
 
 document.addEventListener("DOMContentLoaded", mostrar);
 </script>
+<button onclick="agregar('SUPERVIN 208 APERLADO 19L', 3176)">Agregar</button>
+<button onclick="agregar('SUPERVIN 208 APERLADO 4L', 722)">Agregar</button>
+<button onclick="agregar('SUPERVIN 208 APERLADO 1L', 205)">Agregar</button>
 
-</body>
-</html>
 
 
 
