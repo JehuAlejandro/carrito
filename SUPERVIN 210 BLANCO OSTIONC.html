@@ -78,10 +78,11 @@ Agregar 1L – $205
 <p><strong>Total: $<span id="total">0</span></strong></p>
 
 <!-- BOTONES -->
+
 <button class="vaciar" onclick="vaciarCarrito()">
 🗑️ Vaciar canasta
 </button>
-
+  
 <button class="whatsapp" onclick="enviar()">
 Enviar pedido por WhatsApp
 </button>
@@ -124,6 +125,7 @@ function vaciarCarrito() {
   localStorage.removeItem("carrito");
   mostrar();
 }
+
 
 // Mostrar carrito
 function mostrar() {
@@ -172,3 +174,4 @@ document.addEventListener("DOMContentLoaded", mostrar);
 
 </body>
 </html>
+
