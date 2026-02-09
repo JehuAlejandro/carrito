@@ -43,7 +43,7 @@ button {
 }
 
 .borrar {
-  background: #ccc;
+  background: #ddd;
   border: none;
   margin-left: 5px;
   cursor: pointer;
@@ -57,7 +57,7 @@ button {
 
 <h2>🛒 SUPERVIN 210 BLANCO OSTIÓN</h2>
 
-<!-- BOTONES -->
+<!-- PRODUCTOS -->
 <button onclick="agregar('SUPERVIN 210 BLANCO OSTIÓN 19L', 3176)">
 Agregar 19L – $3,176
 </button>
@@ -77,6 +77,7 @@ Agregar 1L – $205
 
 <p><strong>Total: $<span id="total">0</span></strong></p>
 
+<!-- BOTONES -->
 <button class="vaciar" onclick="vaciarCarrito()">
 🗑️ Vaciar canasta
 </button>
@@ -90,15 +91,17 @@ Enviar pedido por WhatsApp
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
+// Guarda carrito
 function guardarCarrito() {
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
+// Agregar producto
 function agregar(nombre, precio) {
   const existente = carrito.find(p => p.nombre === nombre);
 
   if (existente) {
-    existente.cantidad += 1;
+    existente.cantidad++;
   } else {
     carrito.push({ nombre, precio, cantidad: 1 });
   }
@@ -107,19 +110,22 @@ function agregar(nombre, precio) {
   mostrar();
 }
 
+// Eliminar solo un producto
 function eliminarProducto(nombre) {
   carrito = carrito.filter(p => p.nombre !== nombre);
   guardarCarrito();
   mostrar();
 }
 
+// Vaciar TODO el carrito
 function vaciarCarrito() {
   if (!confirm("¿Seguro que deseas vaciar la canasta?")) return;
   carrito = [];
-  guardarCarrito();
+  localStorage.removeItem("carrito");
   mostrar();
 }
 
+// Mostrar carrito
 function mostrar() {
   const lista = document.getElementById("lista");
   const totalSpan = document.getElementById("total");
@@ -140,6 +146,7 @@ function mostrar() {
   totalSpan.innerText = total;
 }
 
+// Enviar WhatsApp
 function enviar() {
   if (carrito.length === 0) {
     alert("Agrega productos primero");
@@ -159,6 +166,7 @@ function enviar() {
   window.open("https://wa.me/527771537270?text=" + mensaje, "_blank");
 }
 
+// Cargar al abrir
 document.addEventListener("DOMContentLoaded", mostrar);
 </script>
 
