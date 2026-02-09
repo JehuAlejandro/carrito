@@ -2,63 +2,117 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Carrito Supervin</title>
+<title>SUPERVIN 208 APERLADO</title>
 
 <style>
-body { font-family: Arial; background:#f2f2f2; }
-.contenedor {
-  max-width:500px; margin:20px auto;
-  background:#fff; padding:15px; border-radius:6px;
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
 }
-button { width:100%; padding:8px; margin:5px 0; cursor:pointer; }
-.vaciar { background:#e74c3c; color:#fff; border:none; }
-.whatsapp { background:#25D366; color:#fff; border:none; }
-.borrar { margin-left:5px; cursor:pointer; }
+
+.contenedor {
+  max-width: 500px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+h2 {
+  text-align: center;
+}
+
+button {
+  padding: 8px;
+  margin: 5px 0;
+  width: 100%;
+  cursor: pointer;
+}
+
+.whatsapp {
+  background: #25D366;
+  color: white;
+  border: none;
+  font-size: 16px;
+}
+
+.vaciar {
+  background: #e74c3c;
+  color: white;
+  border: none;
+}
+
+.borrar {
+  background: #ddd;
+  border: none;
+  margin-left: 5px;
+  cursor: pointer;
+}
 </style>
 </head>
 
 <body>
 
 <div class="contenedor">
-<h2>🛒 SUPERVIN 210 BLANCO OSTIÓN</h2>
 
-<button onclick="agregar('19L',3176)">Agregar 19L – $3,176</button>
-<button onclick="agregar('4L',722)">Agregar 4L – $722</button>
-<button onclick="agregar('1L',205)">Agregar 1L – $205</button>
+<h2>🛒 SUPERVIN 208 APERLADO</h2>
+
+<!-- PRODUCTOS -->
+<button onclick="agregar('SUPERVIN 208 APERLADO 19L', 3176)">
+Agregar 19L – $3,176
+</button>
+
+<button onclick="agregar('SUPERVIN 208 APERLADO 4L', 722)">
+Agregar 4L – $722
+</button>
+
+<button onclick="agregar('SUPERVIN 208 APERLADO 1L', 205)">
+Agregar 1L – $205
+</button>
 
 <hr>
 
+<h3>Carrito</h3>
 <ul id="lista"></ul>
-<p><b>Total: $<span id="total">0</span></b></p>
 
-<button class="vaciar" onclick="vaciarCarrito()">🗑️ Vaciar canasta</button>
-<button class="whatsapp" onclick="enviar()">Enviar WhatsApp</button>
+<p><strong>Total: $<span id="total">0</span></strong></p>
+
+<button class="whatsapp" onclick="enviar()">
+Enviar pedido por WhatsApp
+</button>
+
 </div>
 
 <script>
-let carrito = [];
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-function cargar() {
-  carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-  mostrar();
-}
-
-function guardar() {
+// Guarda carrito
+function guardarCarrito() {
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
+// Agregar producto
 function agregar(nombre, precio) {
-  carrito.push({ nombre, precio });
-  guardar();
+  const existente = carrito.find(p => p.nombre === nombre);
+
+  if (existente) {
+    existente.cantidad++;
+  } else {
+    carrito.push({ nombre, precio, cantidad: 1 });
+  }
+
+  guardarCarrito();
   mostrar();
 }
 
-function vaciarCarrito() {
-  carrito = [];
-  localStorage.clear(); // ← BORRA TODO SIN FALLAR
+// Eliminar solo un producto
+function eliminarProducto(nombre) {
+  carrito = carrito.filter(p => p.nombre !== nombre);
+  guardarCarrito();
   mostrar();
 }
 
+// Mostrar carrito
 function mostrar() {
   const lista = document.getElementById("lista");
   const totalSpan = document.getElementById("total");
@@ -67,22 +121,40 @@ function mostrar() {
   let total = 0;
 
   carrito.forEach(p => {
-    total += p.precio;
-    lista.innerHTML += `<li>${p.nombre} - $${p.precio}</li>`;
+    total += p.precio * p.cantidad;
+    lista.innerHTML += `
+      <li>
+        ${p.nombre} x${p.cantidad} - $${p.precio * p.cantidad}
+        <button class="borrar" onclick="eliminarProducto('${p.nombre}')">🗑️</button>
+      </li>
+    `;
   });
 
-  totalSpan.textContent = total;
+  totalSpan.innerText = total;
 }
 
+// Enviar WhatsApp
 function enviar() {
   if (carrito.length === 0) {
-    alert("Carrito vacío");
+    alert("Agrega productos primero");
     return;
   }
-  window.open("https://wa.me/527771537270","_blank");
+
+  let mensaje = "🛒 *Pedido Supervin 208 Aperlado*%0A%0A";
+  let total = 0;
+
+  carrito.forEach(p => {
+    mensaje += `• ${p.nombre} x${p.cantidad} - $${p.precio * p.cantidad}%0A`;
+    total += p.precio * p.cantidad;
+  });
+
+  mensaje += `%0A*Total:* $${total}`;
+
+  window.open("https://wa.me/527771537270?text=" + mensaje, "_blank");
 }
 
-document.addEventListener("DOMContentLoaded", cargar);
+// Cargar al abrir
+document.addEventListener("DOMContentLoaded", mostrar);
 </script>
 
 </body>
