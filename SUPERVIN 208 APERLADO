@@ -77,6 +77,8 @@ Agregar 1L – $205
 
 <p><strong>Total: $<span id="total">0</span></strong></p>
 
+<!-- BOTONES -->
+  
 <button class="whatsapp" onclick="enviar()">
 Enviar pedido por WhatsApp
 </button>
@@ -112,6 +114,7 @@ function eliminarProducto(nombre) {
   mostrar();
 }
 
+
 // Mostrar carrito
 function mostrar() {
   const lista = document.getElementById("lista");
@@ -140,7 +143,7 @@ function enviar() {
     return;
   }
 
-  let mensaje = "🛒 *Pedido Supervin 208 Aperlado*%0A%0A";
+  let mensaje = "🛒 *Pedido Supervin*%0A%0A";
   let total = 0;
 
   carrito.forEach(p => {
@@ -159,3 +162,6 @@ document.addEventListener("DOMContentLoaded", mostrar);
 
 </body>
 </html>
+
+
+
