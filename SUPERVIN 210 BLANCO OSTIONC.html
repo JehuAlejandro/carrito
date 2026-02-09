@@ -35,6 +35,19 @@ button {
   border: none;
   font-size: 16px;
 }
+
+.vaciar {
+  background: #e74c3c;
+  color: white;
+  border: none;
+}
+
+.borrar {
+  background: #ccc;
+  border: none;
+  margin-left: 5px;
+  cursor: pointer;
+}
 </style>
 </head>
 
@@ -64,6 +77,10 @@ Agregar 1L – $205
 
 <p><strong>Total: $<span id="total">0</span></strong></p>
 
+<button class="vaciar" onclick="vaciarCarrito()">
+🗑️ Vaciar canasta
+</button>
+
 <button class="whatsapp" onclick="enviar()">
 Enviar pedido por WhatsApp
 </button>
@@ -90,11 +107,22 @@ function agregar(nombre, precio) {
   mostrar();
 }
 
+function eliminarProducto(nombre) {
+  carrito = carrito.filter(p => p.nombre !== nombre);
+  guardarCarrito();
+  mostrar();
+}
+
+function vaciarCarrito() {
+  if (!confirm("¿Seguro que deseas vaciar la canasta?")) return;
+  carrito = [];
+  guardarCarrito();
+  mostrar();
+}
+
 function mostrar() {
   const lista = document.getElementById("lista");
   const totalSpan = document.getElementById("total");
-
-  if (!lista || !totalSpan) return;
 
   lista.innerHTML = "";
   let total = 0;
@@ -102,7 +130,10 @@ function mostrar() {
   carrito.forEach(p => {
     total += p.precio * p.cantidad;
     lista.innerHTML += `
-      <li>${p.nombre} x${p.cantidad} - $${p.precio * p.cantidad}</li>
+      <li>
+        ${p.nombre} x${p.cantidad} - $${p.precio * p.cantidad}
+        <button class="borrar" onclick="eliminarProducto('${p.nombre}')">🗑️</button>
+      </li>
     `;
   });
 
