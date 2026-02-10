@@ -67,12 +67,10 @@ Agregar 1L – $205
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-// Guardar carrito
 function guardarCarrito() {
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-// Agregar productos
 function agregar(nombre, precio) {
   const existe = carrito.find(p => p.nombre === nombre);
 
@@ -86,7 +84,6 @@ function agregar(nombre, precio) {
   alert("Producto agregado a la canasta");
 }
 
-// Ir a la canasta
 function verCanasta() {
   window.location.href = "carrito.html";
 }
