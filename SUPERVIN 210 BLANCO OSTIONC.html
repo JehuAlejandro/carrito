@@ -37,7 +37,7 @@ button {
   padding: 8px;
   border-radius: 20px;
   font-size: 16px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 </style>
 </head>
@@ -70,19 +70,21 @@ Agregar 1L – $205
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-// Guarda carrito
+/* GUARDA */
 function guardarCarrito() {
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-// Actualiza contador
+/* CONTADOR */
 function actualizarContador() {
   let total = 0;
-  carrito.forEach(p => total += p.cantidad);
-  document.getElementById("cantidad").innerText = total;
+  for (let i = 0; i < carrito.length; i++) {
+    total += carrito[i].cantidad;
+  }
+  document.getElementById("cantidad").textContent = total;
 }
 
-// Agregar producto
+/* AGREGAR */
 function agregar(nombre, precio) {
   const existe = carrito.find(p => p.nombre === nombre);
 
@@ -96,11 +98,9 @@ function agregar(nombre, precio) {
   actualizarContador();
 }
 
-// Al cargar página
-document.addEventListener("DOMContentLoaded", actualizarContador);
+/* 🔥 FUERZA ACTUALIZACIÓN AL CARGAR */
+actualizarContador();
 </script>
 
 </body>
 </html>
-
-
