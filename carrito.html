@@ -1,71 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Canasta</title>
-
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
-}
-
-.contenedor {
-  max-width: 500px;
-  margin: 20px auto;
-  background: #fff;
-  padding: 15px;
-  border-radius: 6px;
-}
-
-button {
-  padding: 10px;
-  margin: 6px 0;
-  width: 100%;
-  cursor: pointer;
-}
-
-.whatsapp {
-  background: #25D366;
-  color: white;
-  border: none;
-  font-size: 16px;
-}
-
-.borrar {
-  background: #ddd;
-  border: none;
-  margin-left: 5px;
-}
-
-.volver {
-  background: #3498db;
-  color: white;
-  border: none;
-}
-</style>
-</head>
-
-<body>
-
-<div class="contenedor">
-<h2>🧺 Tu canasta</h2>
-
-<ul id="lista"></ul>
-
-<p><strong>Total: $<span id="total">0</span></strong></p>
-
-<button class="whatsapp" onclick="enviar()">
-Enviar pedido por WhatsApp
-</button>
-
-<button class="volver" onclick="volver()">
-⬅️ Seguir comprando
-</button>
-</div>
-
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+function guardar() {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+}
 
 function mostrar() {
   const lista = document.getElementById("lista");
@@ -76,10 +14,20 @@ function mostrar() {
 
   carrito.forEach(p => {
     total += p.precio * p.cantidad;
+
     lista.innerHTML += `
       <li>
-        ${p.nombre} x${p.cantidad} - $${p.precio * p.cantidad}
+        <strong>${p.nombre}</strong><br>
+        
+        <button onclick="cambiarCantidad('${p.nombre}', -1)">➖</button>
+        <span style="margin:0 10px;">${p.cantidad}</span>
+        <button onclick="cambiarCantidad('${p.nombre}', 1)">➕</button>
+        
+        <br>
+        $${p.precio * p.cantidad}
+        
         <button class="borrar" onclick="eliminar('${p.nombre}')">🗑️</button>
+        <hr>
       </li>
     `;
   });
@@ -87,9 +35,25 @@ function mostrar() {
   totalSpan.innerText = total;
 }
 
+function cambiarCantidad(nombre, cambio) {
+  carrito = carrito.map(p => {
+    if (p.nombre === nombre) {
+      p.cantidad += cambio;
+
+      if (p.cantidad < 1) {
+        p.cantidad = 1;
+      }
+    }
+    return p;
+  });
+
+  guardar();
+  mostrar();
+}
+
 function eliminar(nombre) {
   carrito = carrito.filter(p => p.nombre !== nombre);
-  localStorage.setItem("carrito", JSON.stringify(carrito));
+  guardar();
   mostrar();
 }
 
@@ -115,7 +79,6 @@ function enviar() {
   );
 }
 
-/* 🔥 REGRESO A GOOGLE SITES */
 function volver() {
   window.top.location.href =
     "https://sites.google.com/view/pintumex-sol/arquitectonico/vinilica/supervin/210-blanco-ostion";
@@ -123,6 +86,3 @@ function volver() {
 
 document.addEventListener("DOMContentLoaded", mostrar);
 </script>
-
-</body>
-</html>
