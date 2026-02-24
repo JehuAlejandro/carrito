@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>LIJA DE AGUA</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+}
+
+.contenedor {
+  max-width: 500px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+h2 {
+  text-align: center;
+}
+
+button {
+  padding: 10px;
+  margin: 6px 0;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* CONTADOR */
+.contador {
+  background: #3498db;
+  color: white;
+  text-align: center;
+  padding: 8px;
+  border-radius: 20px;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+<h2>🛒 LIJA DE AGUA</h2>
+
+<!-- CONTADOR -->
+<div class="contador">
+🧺 Canasta: <span id="cantidad">0</span>
+</div>
+
+<button onclick="agregar('LIJA DE AGUA #100', 19)">
+Agregar #100 – $19
+</button>
+
+<button onclick="agregar('LIJA DE AGUA #120', 16)">
+Agregar #120– $16
+</button>
+
+<button onclick="agregar('LIJA DE AGUA #150', 16)">
+Agregar #150 – $16
+</button>
+
+<button onclick="agregar('LIJA DE AGUA #180', 12.50)">
+Agregar #180 – $12.50
+</button>
+
+<button onclick="agregar('LIJA DE AGUA #220', 12.50)">
+Agregar #220 – $12.50
+</button>
+
+<button onclick="agregar('LIJA DE AGUA #240', 12.50)">
+Agregar #240 – $12.50
+</button>
+
+<button onclick="agregar('LIJA DE AGUA #280', 12.50)">
+Agregar #280 – $12.50
+</button>
+
+<button onclick="agregar('LIJA DE AGUA #320', 12.50)">
+Agregar #320 – $12.50
+</button>
+
+<button onclick="agregar('LIJA DE AGUA #360', 12.50)">
+Agregar #360 – $12.50
+</button>
+
+<button onclick="agregar('LIJA DE AGUA #400', 19)">
+Agregar #400 – $
+</button>
+
+<button onclick="agregar('LIJA DE AGUA #500', 17)">
+Agregar #500 – $19
+</button>
+
+<button onclick="agregar('LIJA DE AGUA #600', 17)">
+Agregar #600 – $19
+</button>
+
+<button onclick="agregar('LIJA DE AGUA #1000', 29)">
+Agregar #1000 – $29
+</button>
+
+<button onclick="agregar('LIJA DE AGUA #1200', 29)">
+Agregar #1200 – $29
+</button>
+
+<button onclick="agregar('LIJA DE AGUA #1500', 29)">
+Agregar #1500 – $29
+</button>
+
+<button onclick="agregar('LIJA DE AGUA #2000', 29)">
+Agregar #2000 – $29
+</button>
+
+
+
+</div>
+
+<script>
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+/* GUARDA */
+function guardarCarrito() {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+/* CONTADOR */
+function actualizarContador() {
+  let total = 0;
+  for (let i = 0; i < carrito.length; i++) {
+    total += carrito[i].cantidad;
+  }
+  document.getElementById("cantidad").textContent = total;
+}
+
+/* AGREGAR */
+function agregar(nombre, precio) {
+  const existe = carrito.find(p => p.nombre === nombre);
+
+  if (existe) {
+    existe.cantidad++;
+  } else {
+    carrito.push({ nombre, precio, cantidad: 1 });
+  }
+
+  guardarCarrito();
+  actualizarContador();
+}
+
+/* 🔥 FUERZA ACTUALIZACIÓN AL CARGAR */
+actualizarContador();
+</script>
+
+</body>
+</html>
