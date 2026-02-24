@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>BROCHA PERFEC SERIE 500</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+}
+
+.contenedor {
+  max-width: 500px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+h2 {
+  text-align: center;
+}
+
+button {
+  padding: 10px;
+  margin: 6px 0;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* CONTADOR */
+.contador {
+  background: #3498db;
+  color: white;
+  text-align: center;
+  padding: 8px;
+  border-radius: 20px;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+<h2>🛒 BROCHA PERFEC SERIE 500</h2>
+
+<!-- CONTADOR -->
+<div class="contador">
+🧺 Canasta: <span id="cantidad">0</span>
+</div>
+
+<button onclick="agregar('BROCHA PERFEC SERIE 500 6"', 103)">
+Agregar 6" – $103
+</button>
+
+<button onclick="agregar('BROCHA PERFEC SERIE 500 5"', 70)">
+Agregar 5" – $70
+</button>
+
+<button onclick="agregar('BROCHA PERFEC SERIE 500 4"', 58.5)">
+Agregar 4" – $58.5
+</button>
+
+<button onclick="agregar('BROCHA PERFEC SERIE 500 3"', 36)">
+Agregar 3" – $36
+</button>
+
+<button onclick="agregar('BROCHA PERFEC SERIE 500 2 1/2"', 29)">
+Agregar 2 1/2" – $29
+</button>
+
+<button onclick="agregar('BROCHA PERFEC SERIE 500 2"', 25.5)">
+Agregar 2" – $25.5
+</button>
+
+<button onclick="agregar('BROCHA PERFEC SERIE 500 1 1/2"', 15)">
+Agregar 1 1/2" – $15
+</button>
+
+<button onclick="agregar('BROCHA PERFEC SERIE 500 1"', 13.5)">
+Agregar 1" – $13.5
+</button>
+
+<button onclick="agregar('BROCHA PERFEC SERIE 500 1/2"', 9)">
+Agregar 1/2" – $9
+</button>
+
+
+</div>
+
+<script>
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+/* GUARDA */
+function guardarCarrito() {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+/* CONTADOR */
+function actualizarContador() {
+  let total = 0;
+  for (let i = 0; i < carrito.length; i++) {
+    total += carrito[i].cantidad;
+  }
+  document.getElementById("cantidad").textContent = total;
+}
+
+/* AGREGAR */
+function agregar(nombre, precio) {
+  const existe = carrito.find(p => p.nombre === nombre);
+
+  if (existe) {
+    existe.cantidad++;
+  } else {
+    carrito.push({ nombre, precio, cantidad: 1 });
+  }
+
+  guardarCarrito();
+  actualizarContador();
+}
+
+/* 🔥 FUERZA ACTUALIZACIÓN AL CARGAR */
+actualizarContador();
+</script>
+
+</body>
+</html>
