@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>BROCHA PERFEC FINA</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+}
+
+.contenedor {
+  max-width: 500px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+h2 {
+  text-align: center;
+}
+
+button {
+  padding: 10px;
+  margin: 6px 0;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* CONTADOR */
+.contador {
+  background: #3498db;
+  color: white;
+  text-align: center;
+  padding: 8px;
+  border-radius: 20px;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+<h2>🛒 BROCHA PERFEC FINA</h2>
+
+<!-- CONTADOR -->
+<div class="contador">
+🧺 Canasta: <span id="cantidad">0</span>
+</div>
+
+<button onclick="agregar('BROCHA PERFEC FINA 4"', 124)">
+Agregar 4" – $124
+</button>
+
+<button onclick="agregar('BROCHA PERFEC FINA 3"', 93)">
+Agregar 3" – $93
+</button>
+
+<button onclick="agregar('BROCHA PERFEC FINA 2 1/2"', 69.50)">
+Agregar 2 1/2" – $69.50
+</button>
+
+<button onclick="agregar('BROCHA PERFEC FINA 2"', 55)">
+Agregar 2" – $55
+</button>
+
+<button onclick="agregar('BROCHA PERFEC FINA 1 1/2"', 31.50)">
+Agregar 1 1/2" – $31.50
+</button>
+
+<button onclick="agregar('BROCHA PERFEC FINA 1"', 29)">
+Agregar 1" – $29
+</button>
+
+<button onclick="agregar('BROCHA PERFEC FINA 1/2"', 24)">
+Agregar 1/2" – $24
+</button>
+
+
+</div>
+
+<script>
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+/* GUARDA */
+function guardarCarrito() {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+/* CONTADOR */
+function actualizarContador() {
+  let total = 0;
+  for (let i = 0; i < carrito.length; i++) {
+    total += carrito[i].cantidad;
+  }
+  document.getElementById("cantidad").textContent = total;
+}
+
+/* AGREGAR */
+function agregar(nombre, precio) {
+  const existe = carrito.find(p => p.nombre === nombre);
+
+  if (existe) {
+    existe.cantidad++;
+  } else {
+    carrito.push({ nombre, precio, cantidad: 1 });
+  }
+
+  guardarCarrito();
+  actualizarContador();
+}
+
+/* 🔥 FUERZA ACTUALIZACIÓN AL CARGAR */
+actualizarContador();
+</script>
+
+</body>
+</html>
