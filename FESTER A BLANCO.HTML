@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>FESTER A BLANCO</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+}
+
+.contenedor {
+  max-width: 500px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+h2 {
+  text-align: center;
+}
+
+button {
+  padding: 10px;
+  margin: 6px 0;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* CONTADOR */
+.contador {
+  background: #3498db;
+  color: white;
+  text-align: center;
+  padding: 8px;
+  border-radius: 20px;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+<h2>🛒 FESTER A BLANCO</h2>
+
+<!-- CONTADOR -->
+<div class="contador">
+🧺 Canasta: <span id="cantidad">0</span>
+</div>
+
+<button onclick="agregar('A 3 AÑOS BLANCO Cub 19L', 2025)">
+Agregar 3 AÑOS 19L – $2,025
+</button>
+
+<button onclick="agregar('A 5 AÑOS BLANCO Cub 19L', 2329)">
+Agregar 5 AÑOS 19L – $2,329
+</button>
+
+<button onclick="agregar('A 5 AÑOS BLANCO FIBRATADO Cub 19L', 2543)">
+Agregar 5 AÑOS FIBRATADO 19L – $2,543
+</button>
+
+<button onclick="agregar('A 7 AÑOS BLANCO Cub 19L', 2712)">
+Agregar 7 AÑOS 19L – $2,712
+</button>
+
+<button onclick="agregar('A 3 AÑOS BLANCO Cub 4L', 476)">
+Agregar 3 AÑOS 4L – $476
+</button>
+
+<button onclick="agregar('A 5 AÑOS BLANCO Cub 4L', 552)">
+Agregar 5 AÑOS 4L – $552
+</button>
+
+</div>
+
+<script>
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+/* GUARDA */
+function guardarCarrito() {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+/* CONTADOR */
+function actualizarContador() {
+  let total = 0;
+  for (let i = 0; i < carrito.length; i++) {
+    total += carrito[i].cantidad;
+  }
+  document.getElementById("cantidad").textContent = total;
+}
+
+/* AGREGAR */
+function agregar(nombre, precio) {
+  const existe = carrito.find(p => p.nombre === nombre);
+
+  if (existe) {
+    existe.cantidad++;
+  } else {
+    carrito.push({ nombre, precio, cantidad: 1 });
+  }
+
+  guardarCarrito();
+  actualizarContador();
+}
+
+/* 🔥 FUERZA ACTUALIZACIÓN AL CARGAR */
+actualizarContador();
+</script>
+
+</body>
+</html>
+
+
