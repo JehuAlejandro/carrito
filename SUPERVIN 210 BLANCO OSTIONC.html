@@ -2,77 +2,111 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SUPERVIN 210 BLANCO OSTIÓN</title>
 
 <style>
 body {
   font-family: Arial, sans-serif;
   background: #f2f2f2;
+  margin: 0;
 }
 
+/* ===== BOTÓN FLOTANTE CARRITO ===== */
+.carrito-fijo {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: #3483fa;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.burbuja {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  padding: 4px 7px;
+  border-radius: 50%;
+}
+
+/* ===== CONTENIDO ===== */
 .contenedor {
   max-width: 500px;
-  margin: 20px auto;
+  margin: 80px auto 20px auto;
   background: #fff;
-  padding: 15px;
-  border-radius: 6px;
+  padding: 20px;
+  border-radius: 8px;
 }
 
 h2 {
   text-align: center;
 }
 
-/* BOTONES PRODUCTO */
+/* ===== BOTONES ===== */
 button {
-  padding: 10px;
-  margin: 6px 0;
+  padding: 14px;
+  margin: 8px 0;
   width: 100%;
   cursor: pointer;
-  font-size: 15px;
-}
-
-/* BOTÓN CANASTA */
-.contador {
-  display: block;
-  background: #3498db;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  border-radius: 25px;
   font-size: 16px;
-  margin-bottom: 12px;
-  text-decoration: none;
+  border: none;
+  border-radius: 6px;
   font-weight: bold;
-  transition: background 0.3s;
+  transition: all 0.3s;
 }
 
-.contador:hover {
-  background: #217dbb;
+.agregar {
+  background: #00a650;
+  color: white;
+}
+
+.agregado {
+  background: #008f45;
+  color: white;
+}
+
+/* Animación ligera */
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.animar {
+  animation: pop 0.3s ease;
 }
 </style>
 </head>
 
 <body>
 
-<div class="contenedor">
-
-<h2>🛒 SUPERVIN 210 BLANCO OSTIÓN</h2>
-  <a href="https://jehualejandro.github.io/carrito/carrito.html"" class="contador">
-  <button style="background:#2d89ef;color:white;padding:10px 20px;border:none;border-radius:20px;cursor:pointer;">
-    🛒 Ver carrito
-  </button>
+<!-- BOTÓN FLOTANTE -->
+<a href="https://jehualejandro.github.io/carrito/carrito.html" class="carrito-fijo">
+  🛒
+  <span class="burbuja" id="cantidad">0</span>
 </a>
 
+<div class="contenedor">
+<h2>SUPERVIN 210 BLANCO OSTIÓN</h2>
 
-<button onclick="agregar('SUPERVIN 210 BLANCO OSTIÓN 19L', 3176)">
+<button class="agregar" onclick="agregar(this,'SUPERVIN 210 BLANCO OSTIÓN 19L', 3176)">
 Agregar 19L – $3,176
 </button>
 
-<button onclick="agregar('SUPERVIN 210 BLANCO OSTIÓN 4L', 722)">
+<button class="agregar" onclick="agregar(this,'SUPERVIN 210 BLANCO OSTIÓN 4L', 722)">
 Agregar 4L – $722
 </button>
 
-<button onclick="agregar('SUPERVIN 210 BLANCO OSTIÓN 1L', 205)">
+<button class="agregar" onclick="agregar(this,'SUPERVIN 210 BLANCO OSTIÓN 1L', 205)">
 Agregar 1L – $205
 </button>
 
@@ -81,22 +115,21 @@ Agregar 1L – $205
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-/* GUARDAR CARRITO */
+/* GUARDAR */
 function guardarCarrito() {
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-/* ACTUALIZA CONTADOR */
+/* ACTUALIZAR BURBUJA */
 function actualizarContador() {
   let total = 0;
-  for (let i = 0; i < carrito.length; i++) {
-    total += carrito[i].cantidad;
-  }
+  carrito.forEach(p => total += p.cantidad);
   document.getElementById("cantidad").textContent = total;
 }
 
 /* AGREGAR PRODUCTO */
-function agregar(nombre, precio) {
+function agregar(boton, nombre, precio) {
+
   const existe = carrito.find(p => p.nombre === nombre);
 
   if (existe) {
@@ -107,9 +140,24 @@ function agregar(nombre, precio) {
 
   guardarCarrito();
   actualizarContador();
+
+  /* CAMBIAR TEXTO A AGREGADO ✔ */
+  boton.textContent = "Agregado ✔";
+  boton.classList.remove("agregar");
+  boton.classList.add("agregado");
+
+  /* ANIMAR BURBUJA */
+  const burbuja = document.getElementById("cantidad");
+  burbuja.classList.add("animar");
+
+  setTimeout(() => {
+    boton.textContent = "Agregar nuevamente";
+    boton.classList.remove("agregado");
+    boton.classList.add("agregar");
+    burbuja.classList.remove("animar");
+  }, 1500);
 }
 
-/* ACTUALIZA AL CARGAR */
 actualizarContador();
 </script>
 
