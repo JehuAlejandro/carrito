@@ -3,162 +3,222 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SUPERVIN 210 BLANCO OSTIÓN</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
-  margin: 0;
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:#f5f6f8;
 }
 
-/* ===== BOTÓN FLOTANTE CARRITO ===== */
-.carrito-fijo {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  background: #3483fa;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 30px;
-  font-weight: bold;
-  text-decoration: none;
-  z-index: 1000;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+/* ===== HEADER ===== */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 20px;
 }
 
-.burbuja {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background: red;
-  color: white;
-  font-size: 12px;
-  padding: 4px 7px;
-  border-radius: 50%;
+.logo{
+  font-weight:800;
+  font-size:22px;
 }
 
-/* CONTENIDO */
-.contenedor {
-  max-width: 500px;
-  margin: 80px auto 20px auto;
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
+.carrito{
+  position:relative;
+  background:white;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 15px rgba(0,0,0,0.15);
+  cursor:pointer;
 }
 
-h2 {
-  text-align: center;
+.burbuja{
+  position:absolute;
+  top:-5px;
+  right:-5px;
+  background:red;
+  color:white;
+  font-size:12px;
+  padding:3px 7px;
+  border-radius:50%;
 }
 
-/* BOTONES */
-button {
-  padding: 14px;
-  margin: 8px 0;
-  width: 100%;
-  cursor: pointer;
-  font-size: 16px;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: all 0.3s;
+/* ===== CARD PRINCIPAL ===== */
+.card{
+  max-width:500px;
+  margin:10px auto 40px auto;
+  background:white;
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 10px 35px rgba(0,0,0,0.08);
 }
 
-.agregar {
-  background: #00a650;
-  color: white;
+.imagen{
+  width:100%;
+  border-radius:15px;
+  margin-bottom:20px;
 }
 
-.agregado {
-  background: #008f45;
-  color: white;
+.badge{
+  background:#eef5ff;
+  color:#2968c8;
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:10px;
 }
 
-/* Animación burbuja */
-@keyframes pop {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
+h1{
+  font-size:28px;
+  margin:10px 0;
 }
 
-.animar {
-  animation: pop 0.3s ease;
+.subtitulo{
+  color:#666;
+  margin-bottom:20px;
+}
+
+.precio{
+  font-size:38px;
+  font-weight:800;
+  color:#00a650;
+  margin-bottom:25px;
+}
+
+/* ===== BOTONES ===== */
+.btn{
+  width:100%;
+  padding:16px;
+  margin-bottom:15px;
+  border:none;
+  border-radius:14px;
+  font-size:17px;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .2s ease;
+}
+
+.btn-verde{
+  background:linear-gradient(135deg,#00a650,#008f45);
+  color:white;
+}
+
+.btn-verde:active{
+  transform:scale(.97);
+}
+
+.btn-verde:hover{
+  transform:translateY(-2px);
+}
+
+/* ===== INFO EXTRA ===== */
+.info{
+  display:flex;
+  justify-content:space-around;
+  margin-top:20px;
+  font-size:14px;
+  color:#444;
+}
+
+.info span{
+  display:flex;
+  align-items:center;
+  gap:6px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- BOTÓN FLOTANTE -->
-<a href="https://jehualejandro.github.io/carrito/carrito.html" class="carrito-fijo">
-  🛒
-  <span class="burbuja" id="cantidad">0</span>
-</a>
+<div class="header">
+  <div class="logo">Pintumex</div>
+  <div class="carrito">
+    🛒
+    <div class="burbuja" id="contador">0</div>
+  </div>
+</div>
 
-<div class="contenedor">
-<h2>SUPERVIN 210 BLANCO OSTIÓN</h2>
+<div class="card">
 
-<button class="agregar" onclick="agregar(this,'SUPERVIN 210 BLANCO OSTIÓN 19L', 3176)">
-Agregar 19L – $3,176
-</button>
+  <img src="https://via.placeholder.com/500x400" class="imagen">
 
-<button class="agregar" onclick="agregar(this,'SUPERVIN 210 BLANCO OSTIÓN 4L', 722)">
-Agregar 4L – $722
-</button>
+  <div class="badge">Línea Profesional</div>
 
-<button class="agregar" onclick="agregar(this,'SUPERVIN 210 BLANCO OSTIÓN 1L', 205)">
-Agregar 1L – $205
-</button>
+  <h1>SUPERVIN 210<br>BLANCO OSTIÓN</h1>
+  <div class="subtitulo">Pintura Vinílica Antibacterial · Alta Duración</div>
+
+  <div class="precio">$3,176 MXN</div>
+
+  <button class="btn btn-verde" onclick="agregar('19L',3176,this)">
+    🛒 Agregar 19L – $3,176
+  </button>
+
+  <button class="btn btn-verde" onclick="agregar('4L',722,this)">
+    🛒 Agregar 4L – $722
+  </button>
+
+  <button class="btn btn-verde" onclick="agregar('1L',205,this)">
+    🛒 Agregar 1L – $205
+  </button>
+
+  <div class="info">
+    <span>🚚 Envío Gratis</span>
+    <span>✔ Stock Disponible</span>
+    <span>🛡 Garantía 20 años</span>
+  </div>
 
 </div>
 
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-function guardarCarrito() {
+function guardar(){
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-function actualizarContador() {
-  let total = 0;
-  carrito.forEach(p => total += p.cantidad);
-  document.getElementById("cantidad").textContent = total;
+function actualizar(){
+  let total=0;
+  carrito.forEach(p=> total+=p.cantidad);
+  document.getElementById("contador").textContent=total;
 }
 
-function agregar(boton, nombre, precio) {
+function agregar(tamano, precio, boton){
 
-  const existe = carrito.find(p => p.nombre === nombre);
+  const existe = carrito.find(p=> p.tamano===tamano);
 
-  if (existe) {
+  if(existe){
     existe.cantidad++;
-  } else {
-    carrito.push({ nombre, precio, cantidad: 1 });
+  }else{
+    carrito.push({tamano,precio,cantidad:1});
   }
 
-  guardarCarrito();
-  actualizarContador();
+  guardar();
+  actualizar();
 
-  const textoOriginal = boton.innerHTML;
+  const original = boton.innerHTML;
 
-  // Cambia a Agregado ✔
-  boton.innerHTML = "Agregado ✔";
-  boton.classList.remove("agregar");
-  boton.classList.add("agregado");
+  boton.innerHTML="Agregado ✔";
+  boton.style.background="linear-gradient(135deg,#2968c8,#1f4fa3)";
 
-  const burbuja = document.getElementById("cantidad");
-  burbuja.classList.add("animar");
-
-  setTimeout(() => {
-    boton.innerHTML = textoOriginal;
-    boton.classList.remove("agregado");
-    boton.classList.add("agregar");
-    burbuja.classList.remove("animar");
-  }, 100);
+  setTimeout(()=>{
+    boton.innerHTML=original;
+    boton.style.background="linear-gradient(135deg,#00a650,#008f45)";
+  },300);
 }
 
-actualizarContador();
+actualizar();
 </script>
 
 </body>
 </html>
-
