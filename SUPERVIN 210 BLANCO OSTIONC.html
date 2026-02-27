@@ -222,7 +222,8 @@ h1{
 
 </section>
 
-<script>
+=> total+=p.cantidad);
+  document.getElemen<script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 function guardar(){
@@ -230,38 +231,45 @@ function guardar(){
 }
 
 function actualizar(){
-  let total=0;
-  carrito.forEach(p=> total+=p.cantidad);
-  document.getElementById("contador").textContent=total;
+  let total = 0;
+  carrito.forEach(p => total += p.cantidad);
+  document.getElementById("contador").textContent = total;
 }
 
 function agregar(tamano, precio, boton){
 
-  const existe = carrito.find(p=> p.tamano===tamano);
+  const nombreProducto = "SUPERVIN 210 BLANCO OSTIÓN";
+
+  const existe = carrito.find(p => 
+    p.nombre === nombreProducto && p.tamano === tamano
+  );
 
   if(existe){
     existe.cantidad++;
   }else{
-    carrito.push({tamano,precio,cantidad:1});
+    carrito.push({
+      nombre: nombreProducto,
+      tamano: tamano,
+      precio: precio,
+      cantidad: 1
+    });
   }
 
   guardar();
   actualizar();
 
   const original = boton.innerHTML;
-
-  boton.innerHTML="Agregado ✔";
-  boton.style.background="#2968c8";
+  boton.innerHTML = "Agregado ✔";
+  boton.style.background = "#2968c8";
 
   setTimeout(()=>{
-    boton.innerHTML=original;
-    boton.style.background="#00a650";
-  },300);
+    boton.innerHTML = original;
+    boton.style.background = "#00a650";
+  }, 400);
 }
 
-/* 🔥 IR AL CARRITO */
 function irCarrito(){
-  window.location.href = "https://jehualejandro.github.io/carrito/carrito.html";
+  window.location.href = "carrito.html";
 }
 
 actualizar();
@@ -269,4 +277,5 @@ actualizar();
 
 </body>
 </html>
+
 
