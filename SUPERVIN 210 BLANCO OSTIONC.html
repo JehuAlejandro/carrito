@@ -8,45 +8,42 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
   font-family:'Inter',sans-serif;
-  background:#f5f6f8;
+  background:#ffffff;
 }
 
 /* ===== HEADER ===== */
 .header{
+  width:100%;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:20px 8%;
+  padding:20px 5%;
   background:white;
-  box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  border-bottom:1px solid #eee;
 }
 
 .logo{
-  font-size:24px;
+  font-size:26px;
   font-weight:800;
 }
 
 .carrito{
   position:relative;
-  background:#ffffff;
-  width:50px;
-  height:50px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.15);
+  font-size:24px;
   cursor:pointer;
 }
 
 .burbuja{
   position:absolute;
-  top:-6px;
-  right:-6px;
+  top:-8px;
+  right:-10px;
   background:red;
   color:white;
   font-size:12px;
@@ -54,31 +51,36 @@ body{
   border-radius:50%;
 }
 
-/* ===== CONTENIDO FULL WIDTH ===== */
-.card{
+/* ===== SECCIÓN COMPLETA ===== */
+.seccion{
   width:100%;
-  padding:60px 8%;
-}
-
-/* ===== LAYOUT DOS COLUMNAS ===== */
-.layout{
+  min-height:100vh;
   display:flex;
-  gap:70px;
   align-items:center;
+  padding:60px 5%;
 }
 
-.col-izq{
+.contenido{
+  width:100%;
+  display:flex;
+  gap:80px;
+}
+
+/* ===== COLUMNAS ===== */
+.col-img{
   flex:1;
 }
 
-.col-der{
+.col-info{
   flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 }
 
 .imagen{
   width:100%;
-  border-radius:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  height:auto;
 }
 
 /* ===== TEXTO ===== */
@@ -86,82 +88,82 @@ body{
   background:#eaf2ff;
   color:#2968c8;
   display:inline-block;
-  padding:8px 14px;
+  padding:8px 15px;
   border-radius:25px;
   font-size:14px;
   font-weight:600;
-  margin-bottom:15px;
+  margin-bottom:20px;
 }
 
 h1{
-  font-size:42px;
-  margin:10px 0;
+  font-size:48px;
+  margin:0 0 15px 0;
 }
 
 .subtitulo{
-  color:#666;
   font-size:18px;
-  margin-bottom:25px;
+  color:#555;
+  margin-bottom:30px;
 }
 
 .precio{
-  font-size:48px;
+  font-size:54px;
   font-weight:800;
   color:#00a650;
-  margin-bottom:35px;
+  margin-bottom:40px;
 }
 
 /* ===== BOTONES ===== */
 .btn{
   width:100%;
-  padding:18px;
-  margin-bottom:18px;
+  padding:20px;
+  margin-bottom:20px;
   border:none;
   border-radius:14px;
   font-size:18px;
   font-weight:600;
   cursor:pointer;
-  transition:all .2s ease;
+  transition:.2s ease;
 }
 
 .btn-verde{
-  background:linear-gradient(135deg,#00a650,#008f45);
+  background:#00a650;
   color:white;
 }
 
 .btn-verde:hover{
-  transform:translateY(-3px);
+  transform:translateY(-2px);
 }
 
 .btn-verde:active{
-  transform:scale(.97);
+  transform:scale(.98);
 }
 
 /* ===== INFO EXTRA ===== */
 .info{
   display:flex;
-  gap:30px;
-  margin-top:25px;
+  gap:40px;
+  margin-top:20px;
   font-size:15px;
   color:#444;
 }
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:900px){
-  .layout{
+  .contenido{
     flex-direction:column;
   }
 
   h1{
-    font-size:30px;
+    font-size:32px;
   }
 
   .precio{
-    font-size:36px;
+    font-size:38px;
   }
 
-  .card{
-    padding:30px 5%;
+  .seccion{
+    padding:40px 5%;
   }
 }
 </style>
@@ -178,15 +180,15 @@ h1{
   </div>
 </div>
 
-<div class="card">
+<section class="seccion">
 
-  <div class="layout">
+  <div class="contenido">
 
-    <div class="col-izq">
-      <img src="https://via.placeholder.com/600x500" class="imagen">
+    <div class="col-img">
+      <img src="https://via.placeholder.com/700x600" class="imagen">
     </div>
 
-    <div class="col-der">
+    <div class="col-info">
 
       <div class="badge">Línea Profesional</div>
 
@@ -220,7 +222,7 @@ h1{
 
   </div>
 
-</div>
+</section>
 
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
@@ -251,11 +253,11 @@ function agregar(tamano, precio, boton){
   const original = boton.innerHTML;
 
   boton.innerHTML="Agregado ✔";
-  boton.style.background="linear-gradient(135deg,#2968c8,#1f4fa3)";
+  boton.style.background="#2968c8";
 
   setTimeout(()=>{
     boton.innerHTML=original;
-    boton.style.background="linear-gradient(135deg,#00a650,#008f45)";
+    boton.style.background="#00a650";
   },300);
 }
 
@@ -264,3 +266,4 @@ actualizar();
 
 </body>
 </html>
+
