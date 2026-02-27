@@ -3,96 +3,166 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carrito Pintumex</title>
+<title>SUPERVIN 210 BLANCO OSTIÓN</title>
 
 <style>
-html, body{
+*{
+  box-sizing:border-box;
+}
+
+body{
   margin:0;
-  padding:0;
-  font-family: Arial, sans-serif;
-  background:#f5f5f5;
+  font-family:'Inter',sans-serif;
+  background:#ffffff;
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 .header{
-  background:#ffe600;
-  padding:15px;
-  font-weight:bold;
-  font-size:18px;
-}
-
-/* CONTENIDO */
-.contenedor{
-  padding:15px;
-}
-
-/* TARJETA PRODUCTO */
-.producto{
-  background:#fff;
-  padding:15px;
-  border-radius:10px;
-  margin-bottom:15px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.1);
-}
-
-.nombre{
-  font-weight:bold;
-  margin-bottom:8px;
-}
-
-.controles{
+  width:100%;
   display:flex;
+  justify-content:space-between;
   align-items:center;
-  gap:10px;
-  margin:10px 0;
+  padding:20px 5%;
+  background:white;
+  border-bottom:1px solid #eee;
 }
 
-button{
-  border:none;
-  padding:8px 12px;
-  border-radius:6px;
-  font-size:16px;
+.logo{
+  font-size:26px;
+  font-weight:800;
+}
+
+.carrito{
+  position:relative;
+  font-size:24px;
   cursor:pointer;
 }
 
-.cantidad-btn{
-  background:#3483fa;
+.burbuja{
+  position:absolute;
+  top:-8px;
+  right:-10px;
+  background:red;
   color:white;
-  font-weight:bold;
+  font-size:12px;
+  padding:4px 8px;
+  border-radius:50%;
 }
 
-.borrar{
-  background:#e0e0e0;
+/* ===== SECCIÓN COMPLETA ===== */
+.seccion{
+  width:100%;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding:60px 5%;
+}
+
+.contenido{
+  width:100%;
+  display:flex;
+  gap:80px;
+}
+
+/* ===== COLUMNAS ===== */
+.col-img{
+  flex:1;
+}
+
+.col-info{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.imagen{
+  width:100%;
+  height:auto;
+}
+
+/* ===== TEXTO ===== */
+.badge{
+  background:#eaf2ff;
+  color:#2968c8;
+  display:inline-block;
+  padding:8px 15px;
+  border-radius:25px;
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:20px;
+}
+
+h1{
+  font-size:48px;
+  margin:0 0 15px 0;
+}
+
+.subtitulo{
+  font-size:18px;
+  color:#555;
+  margin-bottom:30px;
 }
 
 .precio{
-  font-weight:bold;
-  color:#333;
+  font-size:54px;
+  font-weight:800;
+  color:#00a650;
+  margin-bottom:40px;
 }
 
-/* TOTAL */
-.total-box{
-  background:#fff;
-  padding:15px;
-  border-radius:10px;
+/* ===== BOTONES ===== */
+.btn{
+  width:100%;
+  padding:20px;
+  margin-bottom:20px;
+  border:none;
+  border-radius:14px;
   font-size:18px;
-  font-weight:bold;
-  box-shadow:0 2px 6px rgba(0,0,0,0.1);
-  margin-top:10px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.2s ease;
 }
 
-/* BOTÓN WHATSAPP */
-.whatsapp{
+.btn-verde{
   background:#00a650;
   color:white;
-  width:100%;
-  padding:16px;
-  font-size:18px;
-  font-weight:bold;
-  border:none;
-  border-radius:10px;
-  margin-top:15px;
-  cursor:pointer;
+}
+
+.btn-verde:hover{
+  transform:translateY(-2px);
+}
+
+.btn-verde:active{
+  transform:scale(.98);
+}
+
+/* ===== INFO EXTRA ===== */
+.info{
+  display:flex;
+  gap:40px;
+  margin-top:20px;
+  font-size:15px;
+  color:#444;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .contenido{
+    flex-direction:column;
+  }
+
+  h1{
+    font-size:32px;
+  }
+
+  .precio{
+    font-size:38px;
+  }
+
+  .seccion{
+    padding:40px 5%;
+  }
 }
 </style>
 </head>
@@ -100,22 +170,57 @@ button{
 <body>
 
 <div class="header">
-🛒 Carrito Pintumex
+  <div class="logo">Pintumex</div>
+
+  <div class="carrito" onclick="irCarrito()">
+    🛒
+    <div class="burbuja" id="contador">0</div>
+  </div>
 </div>
 
-<div class="contenedor">
+<section class="seccion">
 
-<div id="lista"></div>
+  <div class="contenido">
 
-<div class="total-box">
-Total: $<span id="total">0</span>
-</div>
+    <div class="col-img">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQCuYmC6L_rsLRH1Raf3lYyx6BRNy0TjKhRA&s" class="imagen">
+    </div>
 
-<button class="whatsapp" onclick="enviar()">
-Enviar pedido por WhatsApp
-</button>
+    <div class="col-info">
 
-</div>
+      <div class="badge">Línea Profesional</div>
+
+      <h1>SUPERVIN 210<br>BLANCO OSTIÓN</h1>
+
+      <div class="subtitulo">
+        Pintura Vinílica Antibacterial · Alta Duración
+      </div>
+
+      <div class="precio">$3,176 MXN</div>
+
+      <button class="btn btn-verde" onclick="agregar('19L',3176,this)">
+        🛒 Agregar 19L – $3,176
+      </button>
+
+      <button class="btn btn-verde" onclick="agregar('4L',722,this)">
+        🛒 Agregar 4L – $722
+      </button>
+
+      <button class="btn btn-verde" onclick="agregar('1L',205,this)">
+        🛒 Agregar 1L – $205
+      </button>
+
+      <div class="info">
+        <div>🚚 Envío Gratis</div>
+        <div>✔ Stock Disponible</div>
+        <div>🛡 Garantía 20 años</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
 
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
@@ -124,80 +229,42 @@ function guardar(){
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-function mostrar(){
-  const lista = document.getElementById("lista");
-  const totalSpan = document.getElementById("total");
+function actualizar(){
+  let total=0;
+  carrito.forEach(p=> total+=p.cantidad);
+  document.getElementById("contador").textContent=total;
+}
 
-  lista.innerHTML = "";
-  let total = 0;
+function agregar(tamano, precio, boton){
 
-  if(carrito.length === 0){
-    lista.innerHTML = "<p>Tu carrito está vacío</p>";
+  const existe = carrito.find(p=> p.tamano===tamano);
+
+  if(existe){
+    existe.cantidad++;
+  }else{
+    carrito.push({tamano,precio,cantidad:1});
   }
 
-  carrito.forEach(p=>{
-    total += p.precio * p.cantidad;
-
-    lista.innerHTML += `
-      <div class="producto">
-        <div class="nombre">${p.nombre}</div>
-        
-        <div class="controles">
-          <button class="cantidad-btn" onclick="cambiar('${p.nombre}',-1)">-</button>
-          <span>${p.cantidad}</span>
-          <button class="cantidad-btn" onclick="cambiar('${p.nombre}',1)">+</button>
-          <button class="borrar" onclick="eliminar('${p.nombre}')">🗑</button>
-        </div>
-
-        <div class="precio">$${p.precio * p.cantidad}</div>
-      </div>
-    `;
-  });
-
-  totalSpan.innerText = total;
-}
-
-function cambiar(nombre, cambio){
-  carrito = carrito.map(p=>{
-    if(p.nombre === nombre){
-      p.cantidad += cambio;
-      if(p.cantidad < 1){
-        p.cantidad = 1;
-      }
-    }
-    return p;
-  });
-
   guardar();
-  mostrar();
+  actualizar();
+
+  const original = boton.innerHTML;
+
+  boton.innerHTML="Agregado ✔";
+  boton.style.background="#2968c8";
+
+  setTimeout(()=>{
+    boton.innerHTML=original;
+    boton.style.background="#00a650";
+  },300);
 }
 
-function eliminar(nombre){
-  carrito = carrito.filter(p=>p.nombre !== nombre);
-  guardar();
-  mostrar();
+/* 🔥 IR AL CARRITO */
+function irCarrito(){
+  window.location.href = "https://jehualejandro.github.io/carrito/carrito.html";
 }
 
-function enviar(){
-  if(carrito.length === 0){
-    alert("El carrito está vacío");
-    return;
-  }
-
-  let mensaje = "🛒 *Pedido Pintumex*%0A%0A";
-  let total = 0;
-
-  carrito.forEach(p=>{
-    mensaje += `• ${p.nombre} x${p.cantidad} - $${p.precio * p.cantidad}%0A`;
-    total += p.precio * p.cantidad;
-  });
-
-  mensaje += `%0A*Total:* $${total}`;
-
-  window.open("https://wa.me/527771537270?text="+mensaje,"_blank");
-}
-
-document.addEventListener("DOMContentLoaded", mostrar);
+actualizar();
 </script>
 
 </body>
