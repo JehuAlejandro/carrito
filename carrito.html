@@ -2,270 +2,128 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SUPERVIN 210 BLANCO OSTIÓN</title>
+<title>Canasta</title>
 
 <style>
-*{
-  box-sizing:border-box;
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
 }
 
-body{
-  margin:0;
-  font-family:'Inter',sans-serif;
-  background:#ffffff;
+.contenedor {
+  max-width: 500px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
 }
 
-/* ===== HEADER ===== */
-.header{
-  width:100%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:20px 5%;
-  background:white;
-  border-bottom:1px solid #eee;
+button {
+  padding: 10px;
+  margin: 6px 0;
+  width: 100%;
+  cursor: pointer;
 }
 
-.logo{
-  font-size:26px;
-  font-weight:800;
+.whatsapp {
+  background: #25D366;
+  color: white;
+  border: none;
+  font-size: 16px;
 }
 
-.carrito{
-  position:relative;
-  font-size:24px;
-  cursor:pointer;
+.borrar {
+  background: #ddd;
+  border: none;
+  margin-left: 5px;
 }
 
-.burbuja{
-  position:absolute;
-  top:-8px;
-  right:-10px;
-  background:red;
-  color:white;
-  font-size:12px;
-  padding:4px 8px;
-  border-radius:50%;
-}
-
-/* ===== SECCIÓN COMPLETA ===== */
-.seccion{
-  width:100%;
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  padding:60px 5%;
-}
-
-.contenido{
-  width:100%;
-  display:flex;
-  gap:80px;
-}
-
-/* ===== COLUMNAS ===== */
-.col-img{
-  flex:1;
-}
-
-.col-info{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
-
-.imagen{
-  width:100%;
-  height:auto;
-}
-
-/* ===== TEXTO ===== */
-.badge{
-  background:#eaf2ff;
-  color:#2968c8;
-  display:inline-block;
-  padding:8px 15px;
-  border-radius:25px;
-  font-size:14px;
-  font-weight:600;
-  margin-bottom:20px;
-}
-
-h1{
-  font-size:48px;
-  margin:0 0 15px 0;
-}
-
-.subtitulo{
-  font-size:18px;
-  color:#555;
-  margin-bottom:30px;
-}
-
-.precio{
-  font-size:54px;
-  font-weight:800;
-  color:#00a650;
-  margin-bottom:40px;
-}
-
-/* ===== BOTONES ===== */
-.btn{
-  width:100%;
-  padding:20px;
-  margin-bottom:20px;
-  border:none;
-  border-radius:14px;
-  font-size:18px;
-  font-weight:600;
-  cursor:pointer;
-  transition:.2s ease;
-}
-
-.btn-verde{
-  background:#00a650;
-  color:white;
-}
-
-.btn-verde:hover{
-  transform:translateY(-2px);
-}
-
-.btn-verde:active{
-  transform:scale(.98);
-}
-
-/* ===== INFO EXTRA ===== */
-.info{
-  display:flex;
-  gap:40px;
-  margin-top:20px;
-  font-size:15px;
-  color:#444;
-}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width:900px){
-  .contenido{
-    flex-direction:column;
-  }
-
-  h1{
-    font-size:32px;
-  }
-
-  .precio{
-    font-size:38px;
-  }
-
-  .seccion{
-    padding:40px 5%;
-  }
+.volver {
+  background: #3498db;
+  color: white;
+  border: none;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-  <div class="logo">Pintumex</div>
+<div class="contenedor">
+<h2>🧺 Tu canasta</h2>
 
-  <a href="https://jehualejandro.github.io/carrito/carrito.html" class="carrito">
-  🛒
-  <div class="burbuja" id="contador">0</div>
-</a>
+<ul id="lista"></ul>
 
-<section class="seccion">
+<p><strong>Total: $<span id="total">0</span></strong></p>
 
-  <div class="contenido">
+<button class="whatsapp" onclick="enviar()">
+Enviar pedido por WhatsApp
+</button>
 
-    <div class="col-img">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQCuYmC6L_rsLRH1Raf3lYyx6BRNy0TjKhRA&s" class="imagen">
-    </div>
-
-    <div class="col-info">
-
-      <div class="badge">Línea Profesional</div>
-
-      <h1>SUPERVIN 210<br>BLANCO OSTIÓN</h1>
-
-      <div class="subtitulo">
-        Pintura Vinílica Antibacterial · Alta Duración
-      </div>
-
-      <div class="precio">$3,176 MXN</div>
-
-      <button class="btn btn-verde" onclick="agregar('19L',3176,this)">
-        🛒 Agregar 19L – $3,176
-      </button>
-
-      <button class="btn btn-verde" onclick="agregar('4L',722,this)">
-        🛒 Agregar 4L – $722
-      </button>
-
-      <button class="btn btn-verde" onclick="agregar('1L',205,this)">
-        🛒 Agregar 1L – $205
-      </button>
-
-      <div class="info">
-        <div>🚚 Envío Gratis</div>
-        <div>✔ Stock Disponible</div>
-        <div>🛡 Garantía 20 años</div>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
+<button class="volver" onclick="volver()">
+⬅️ Seguir comprando
+</button>
+</div>
 
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-function guardar(){
+// Mostrar carrito
+function mostrar() {
+  const lista = document.getElementById("lista");
+  const totalSpan = document.getElementById("total");
+
+  lista.innerHTML = "";
+  let total = 0;
+
+  carrito.forEach(p => {
+    total += p.precio * p.cantidad;
+    lista.innerHTML += `
+      <li>
+        ${p.nombre} x${p.cantidad} - $${p.precio * p.cantidad}
+        <button class="borrar" onclick="eliminar('${p.nombre}')">🗑️</button>
+      </li>
+    `;
+  });
+
+  totalSpan.innerText = total;
+}
+
+// Eliminar producto
+function eliminar(nombre) {
+  carrito = carrito.filter(p => p.nombre !== nombre);
   localStorage.setItem("carrito", JSON.stringify(carrito));
+  mostrar();
 }
 
-function actualizar(){
-  let total=0;
-  carrito.forEach(p=> total+=p.cantidad);
-  document.getElementById("contador").textContent=total;
-}
-
-function agregar(tamano, precio, boton){
-
-  const existe = carrito.find(p=> p.tamano===tamano);
-
-  if(existe){
-    existe.cantidad++;
-  }else{
-    carrito.push({tamano,precio,cantidad:1});
+// Enviar WhatsApp
+function enviar() {
+  if (carrito.length === 0) {
+    alert("La canasta está vacía");
+    return;
   }
 
-  guardar();
-  actualizar();
+  let mensaje = "🛒 *Pedido Supervin*%0A%0A";
+  let total = 0;
 
-  const original = boton.innerHTML;
+  carrito.forEach(p => {
+    mensaje += `• ${p.nombre} x${p.cantidad} - $${p.precio * p.cantidad}%0A`;
+    total += p.precio * p.cantidad;
+  });
 
-  boton.innerHTML="Agregado ✔";
-  boton.style.background="#2968c8";
+  mensaje += `%0A*Total:* $${total}`;
 
-  setTimeout(()=>{
-    boton.innerHTML=original;
-    boton.style.background="#00a650";
-  },300);
+  window.open("https://wa.me/527771537270?text=" + mensaje, "_blank");
 }
 
-/* 🔥 IR AL CARRITO */
-function irCarrito(){
-  window.location.href = "https://jehualejandro.github.io/carrito/carrito.html";
+// Volver a productos
+function volver() {
+  window.location.href = "index.html";
 }
 
-actualizar();
+document.addEventListener("DOMContentLoaded", mostrar);
 </script>
 
 </body>
 </html>
+
 
