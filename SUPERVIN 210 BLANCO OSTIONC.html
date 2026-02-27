@@ -12,7 +12,7 @@ body {
   margin: 0;
 }
 
-/* BOTÓN FLOTANTE */
+/* ===== BOTÓN FLOTANTE CARRITO ===== */
 .carrito-fijo {
   position: fixed;
   top: 15px;
@@ -51,6 +51,7 @@ h2 {
   text-align: center;
 }
 
+/* BOTONES */
 button {
   padding: 14px;
   margin: 8px 0;
@@ -60,7 +61,7 @@ button {
   border: none;
   border-radius: 6px;
   font-weight: bold;
-  transition: all 0.2s;
+  transition: all 0.3s;
 }
 
 .agregar {
@@ -72,11 +73,23 @@ button {
   background: #008f45;
   color: white;
 }
+
+/* Animación burbuja */
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.animar {
+  animation: pop 0.3s ease;
+}
 </style>
 </head>
 
 <body>
 
+<!-- BOTÓN FLOTANTE -->
 <a href="https://jehualejandro.github.io/carrito/carrito.html" class="carrito-fijo">
   🛒
   <span class="burbuja" id="cantidad">0</span>
@@ -125,10 +138,22 @@ function agregar(boton, nombre, precio) {
   guardarCarrito();
   actualizarContador();
 
-  // Cambio inmediato y permanente
+  const textoOriginal = boton.innerHTML;
+
+  // Cambia a Agregado ✔
   boton.innerHTML = "Agregado ✔";
   boton.classList.remove("agregar");
   boton.classList.add("agregado");
+
+  const burbuja = document.getElementById("cantidad");
+  burbuja.classList.add("animar");
+
+  setTimeout(() => {
+    boton.innerHTML = textoOriginal;
+    boton.classList.remove("agregado");
+    boton.classList.add("agregar");
+    burbuja.classList.remove("animar");
+  }, 500);
 }
 
 actualizarContador();
