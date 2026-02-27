@@ -19,16 +19,11 @@ html, body{
   padding:15px;
   font-weight:bold;
   font-size:18px;
-  position:fixed;
-  top:0;
-  width:100%;
-  box-sizing:border-box;
-  z-index:10;
 }
 
 /* CONTENIDO */
 .contenedor{
-  padding:80px 15px 100px 15px;
+  padding:15px;
 }
 
 /* TARJETA PRODUCTO */
@@ -83,20 +78,20 @@ button{
   font-size:18px;
   font-weight:bold;
   box-shadow:0 2px 6px rgba(0,0,0,0.1);
+  margin-top:10px;
 }
 
-/* BOTÓN WHATSAPP FIJO */
+/* BOTÓN WHATSAPP */
 .whatsapp{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
   background:#00a650;
   color:white;
-  padding:18px;
+  width:100%;
+  padding:16px;
   font-size:18px;
-  border:none;
   font-weight:bold;
+  border:none;
+  border-radius:10px;
+  margin-top:15px;
   cursor:pointer;
 }
 </style>
@@ -116,11 +111,11 @@ button{
 Total: $<span id="total">0</span>
 </div>
 
-</div>
-
 <button class="whatsapp" onclick="enviar()">
 Enviar pedido por WhatsApp
 </button>
+
+</div>
 
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
