@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>SUPERVIN 210 BLANCO OSTIÓN</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -20,90 +19,106 @@ body{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:15px 20px;
+  padding:20px 8%;
+  background:white;
+  box-shadow:0 2px 10px rgba(0,0,0,0.05);
 }
 
 .logo{
+  font-size:24px;
   font-weight:800;
-  font-size:22px;
 }
 
 .carrito{
   position:relative;
-  background:white;
-  width:45px;
-  height:45px;
+  background:#ffffff;
+  width:50px;
+  height:50px;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
-  box-shadow:0 4px 15px rgba(0,0,0,0.15);
+  font-size:22px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.15);
   cursor:pointer;
 }
 
 .burbuja{
   position:absolute;
-  top:-5px;
-  right:-5px;
+  top:-6px;
+  right:-6px;
   background:red;
   color:white;
   font-size:12px;
-  padding:3px 7px;
+  padding:4px 8px;
   border-radius:50%;
 }
 
-/* ===== CARD PRINCIPAL ===== */
+/* ===== CONTENIDO FULL WIDTH ===== */
 .card{
-  max-width:500px;
-  margin:10px auto 40px auto;
-  background:white;
-  border-radius:20px;
-  padding:25px;
-  box-shadow:0 10px 35px rgba(0,0,0,0.08);
+  width:100%;
+  padding:60px 8%;
+}
+
+/* ===== LAYOUT DOS COLUMNAS ===== */
+.layout{
+  display:flex;
+  gap:70px;
+  align-items:center;
+}
+
+.col-izq{
+  flex:1;
+}
+
+.col-der{
+  flex:1;
 }
 
 .imagen{
   width:100%;
-  border-radius:15px;
-  margin-bottom:20px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
 }
 
+/* ===== TEXTO ===== */
 .badge{
-  background:#eef5ff;
+  background:#eaf2ff;
   color:#2968c8;
   display:inline-block;
-  padding:6px 12px;
-  border-radius:20px;
+  padding:8px 14px;
+  border-radius:25px;
   font-size:14px;
   font-weight:600;
-  margin-bottom:10px;
+  margin-bottom:15px;
 }
 
 h1{
-  font-size:28px;
+  font-size:42px;
   margin:10px 0;
 }
 
 .subtitulo{
   color:#666;
-  margin-bottom:20px;
+  font-size:18px;
+  margin-bottom:25px;
 }
 
 .precio{
-  font-size:38px;
+  font-size:48px;
   font-weight:800;
   color:#00a650;
-  margin-bottom:25px;
+  margin-bottom:35px;
 }
 
 /* ===== BOTONES ===== */
 .btn{
   width:100%;
-  padding:16px;
-  margin-bottom:15px;
+  padding:18px;
+  margin-bottom:18px;
   border:none;
   border-radius:14px;
-  font-size:17px;
+  font-size:18px;
   font-weight:600;
   cursor:pointer;
   transition:all .2s ease;
@@ -114,27 +129,40 @@ h1{
   color:white;
 }
 
-.btn-verde:active{
-  transform:scale(.97);
+.btn-verde:hover{
+  transform:translateY(-3px);
 }
 
-.btn-verde:hover{
-  transform:translateY(-2px);
+.btn-verde:active{
+  transform:scale(.97);
 }
 
 /* ===== INFO EXTRA ===== */
 .info{
   display:flex;
-  justify-content:space-around;
-  margin-top:20px;
-  font-size:14px;
+  gap:30px;
+  margin-top:25px;
+  font-size:15px;
   color:#444;
 }
 
-.info span{
-  display:flex;
-  align-items:center;
-  gap:6px;
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .layout{
+    flex-direction:column;
+  }
+
+  h1{
+    font-size:30px;
+  }
+
+  .precio{
+    font-size:36px;
+  }
+
+  .card{
+    padding:30px 5%;
+  }
 }
 </style>
 </head>
@@ -143,6 +171,7 @@ h1{
 
 <div class="header">
   <div class="logo">Pintumex</div>
+
   <div class="carrito">
     🛒
     <div class="burbuja" id="contador">0</div>
@@ -151,31 +180,44 @@ h1{
 
 <div class="card">
 
-  <img src="https://via.placeholder.com/500x400" class="imagen">
+  <div class="layout">
 
-  <div class="badge">Línea Profesional</div>
+    <div class="col-izq">
+      <img src="https://via.placeholder.com/600x500" class="imagen">
+    </div>
 
-  <h1>SUPERVIN 210<br>BLANCO OSTIÓN</h1>
-  <div class="subtitulo">Pintura Vinílica Antibacterial · Alta Duración</div>
+    <div class="col-der">
 
-  <div class="precio">$3,176 MXN</div>
+      <div class="badge">Línea Profesional</div>
 
-  <button class="btn btn-verde" onclick="agregar('19L',3176,this)">
-    🛒 Agregar 19L – $3,176
-  </button>
+      <h1>SUPERVIN 210<br>BLANCO OSTIÓN</h1>
 
-  <button class="btn btn-verde" onclick="agregar('4L',722,this)">
-    🛒 Agregar 4L – $722
-  </button>
+      <div class="subtitulo">
+        Pintura Vinílica Antibacterial · Alta Duración
+      </div>
 
-  <button class="btn btn-verde" onclick="agregar('1L',205,this)">
-    🛒 Agregar 1L – $205
-  </button>
+      <div class="precio">$3,176 MXN</div>
 
-  <div class="info">
-    <span>🚚 Envío Gratis</span>
-    <span>✔ Stock Disponible</span>
-    <span>🛡 Garantía 20 años</span>
+      <button class="btn btn-verde" onclick="agregar('19L',3176,this)">
+        🛒 Agregar 19L – $3,176
+      </button>
+
+      <button class="btn btn-verde" onclick="agregar('4L',722,this)">
+        🛒 Agregar 4L – $722
+      </button>
+
+      <button class="btn btn-verde" onclick="agregar('1L',205,this)">
+        🛒 Agregar 1L – $205
+      </button>
+
+      <div class="info">
+        <div>🚚 Envío Gratis</div>
+        <div>✔ Stock Disponible</div>
+        <div>🛡 Garantía 20 años</div>
+      </div>
+
+    </div>
+
   </div>
 
 </div>
