@@ -22,22 +22,32 @@ h2 {
   text-align: center;
 }
 
+/* BOTONES PRODUCTO */
 button {
   padding: 10px;
   margin: 6px 0;
   width: 100%;
   cursor: pointer;
+  font-size: 15px;
 }
 
-/* CONTADOR */
+/* BOTÓN CANASTA */
 .contador {
+  display: block;
   background: #3498db;
   color: white;
   text-align: center;
-  padding: 8px;
-  border-radius: 20px;
+  padding: 10px;
+  border-radius: 25px;
   font-size: 16px;
   margin-bottom: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.contador:hover {
+  background: #217dbb;
 }
 </style>
 </head>
@@ -48,10 +58,10 @@ button {
 
 <h2>🛒 SUPERVIN 210 BLANCO OSTIÓN</h2>
 
-<!-- CONTADOR -->
-<div class="contador">
-🧺 Canasta: <span id="cantidad">0</span>
-</div>
+<!-- CANASTA / CONTADOR -->
+<a href="https://www.pintumex-sol.com.mx/carrito" class="contador">
+🧺 Ver carrito (<span id="cantidad">0</span>)
+</a>
 
 <button onclick="agregar('SUPERVIN 210 BLANCO OSTIÓN 19L', 3176)">
 Agregar 19L – $3,176
@@ -70,12 +80,12 @@ Agregar 1L – $205
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-/* GUARDA */
+/* GUARDAR CARRITO */
 function guardarCarrito() {
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-/* CONTADOR */
+/* ACTUALIZA CONTADOR */
 function actualizarContador() {
   let total = 0;
   for (let i = 0; i < carrito.length; i++) {
@@ -84,7 +94,7 @@ function actualizarContador() {
   document.getElementById("cantidad").textContent = total;
 }
 
-/* AGREGAR */
+/* AGREGAR PRODUCTO */
 function agregar(nombre, precio) {
   const existe = carrito.find(p => p.nombre === nombre);
 
@@ -98,7 +108,7 @@ function agregar(nombre, precio) {
   actualizarContador();
 }
 
-/* 🔥 FUERZA ACTUALIZACIÓN AL CARGAR */
+/* ACTUALIZA AL CARGAR */
 actualizarContador();
 </script>
 
