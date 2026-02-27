@@ -5,43 +5,44 @@
 <title>Canasta</title>
 
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
+body{
+  font-family:Arial;
+  background:#f2f2f2;
 }
 
-.contenedor {
-  max-width: 500px;
-  margin: 20px auto;
-  background: #fff;
-  padding: 15px;
-  border-radius: 6px;
+.contenedor{
+  max-width:500px;
+  margin:20px auto;
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
 }
 
-button {
-  padding: 10px;
-  margin: 6px 0;
-  width: 100%;
-  cursor: pointer;
+ul{padding-left:20px;}
+
+button{
+  padding:10px;
+  margin:6px 0;
+  width:100%;
+  cursor:pointer;
 }
 
-.whatsapp {
-  background: #25D366;
-  color: white;
-  border: none;
-  font-size: 16px;
+.whatsapp{
+  background:#25D366;
+  color:white;
+  border:none;
 }
 
-.borrar {
-  background: #ddd;
-  border: none;
-  margin-left: 5px;
+.borrar{
+  background:#ddd;
+  border:none;
+  margin-left:5px;
 }
 
-.volver {
-  background: #3498db;
-  color: white;
-  border: none;
+.volver{
+  background:#3498db;
+  color:white;
+  border:none;
 }
 </style>
 </head>
@@ -67,63 +68,63 @@ Enviar pedido por WhatsApp
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-// Mostrar carrito
-function mostrar() {
-  const lista = document.getElementById("lista");
-  const totalSpan = document.getElementById("total");
+function mostrar(){
+  const lista=document.getElementById("lista");
+  const totalSpan=document.getElementById("total");
 
-  lista.innerHTML = "";
-  let total = 0;
+  lista.innerHTML="";
+  let total=0;
 
-  carrito.forEach(p => {
-    total += p.precio * p.cantidad;
-    lista.innerHTML += `
+  carrito.forEach(p=>{
+    total+=p.precio*p.cantidad;
+
+    lista.innerHTML+=`
       <li>
-        ${p.nombre} x${p.cantidad} - $${p.precio * p.cantidad}
+        ${p.nombre} x${p.cantidad} - $${p.precio*p.cantidad}
         <button class="borrar" onclick="eliminar('${p.nombre}')">🗑️</button>
       </li>
     `;
   });
 
-  totalSpan.innerText = total;
+  totalSpan.innerText=total;
 }
 
-// Eliminar producto
-function eliminar(nombre) {
-  carrito = carrito.filter(p => p.nombre !== nombre);
-  localStorage.setItem("carrito", JSON.stringify(carrito));
+function eliminar(nombre){
+  carrito=carrito.filter(p=>p.nombre!==nombre);
+  localStorage.setItem("carrito",JSON.stringify(carrito));
   mostrar();
 }
 
-// Enviar WhatsApp
-function enviar() {
-  if (carrito.length === 0) {
+function enviar(){
+  if(carrito.length===0){
     alert("La canasta está vacía");
     return;
   }
 
-  let mensaje = "🛒 *Pedido Supervin*%0A%0A";
-  let total = 0;
+  let mensaje="🛒 Pedido Supervin%0A%0A";
+  let total=0;
 
-  carrito.forEach(p => {
-    mensaje += `• ${p.nombre} x${p.cantidad} - $${p.precio * p.cantidad}%0A`;
-    total += p.precio * p.cantidad;
+  carrito.forEach(p=>{
+    mensaje+=`${p.nombre} x${p.cantidad} - $${p.precio*p.cantidad}%0A`;
+    total+=p.precio*p.cantidad;
   });
 
-  mensaje += `%0A*Total:* $${total}`;
+  mensaje+=`%0ATotal: $${total}`;
 
-  window.open("https://wa.me/527771537270?text=" + mensaje, "_blank");
+  window.open("https://wa.me/527771537270?text="+mensaje,"_blank");
 }
 
-// Volver a productos
-function volver() {
-  window.location.href = "index.html";
+function volver(){
+  window.location.href="index.html";
 }
 
-document.addEventListener("DOMContentLoaded", mostrar);
+document.addEventListener("DOMContentLoaded",mostrar);
 </script>
 
 </body>
 </html>
+</body>
+</html>
+
 
 
