@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SUPERVIN 210 BLANCO OSTIÓN</title>
 
-<link href="https://pintumex.com.mx/wp-content/uploads/Mock-Up-2025-Supervin-Frente-19-L.png" rel="stylesheet">
-
 <style>
 *{
   box-sizing:border-box;
@@ -174,7 +172,7 @@ h1{
 <div class="header">
   <div class="logo">Pintumex</div>
 
-  <div class="carrito">
+  <div class="carrito" onclick="irCarrito()">
     🛒
     <div class="burbuja" id="contador">0</div>
   </div>
@@ -184,9 +182,10 @@ h1{
 
   <div class="contenido">
 
-<div class="col-img">
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQCuYmC6L_rsLRH1Raf3lYyx6BRNy0TjKhRA&s" class="imagen">
-</div>
+    <div class="col-img">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQCuYmC6L_rsLRH1Raf3lYyx6BRNy0TjKhRA&s" class="imagen">
+    </div>
+
     <div class="col-info">
 
       <div class="badge">Línea Profesional</div>
@@ -260,11 +259,14 @@ function agregar(tamano, precio, boton){
   },300);
 }
 
+/* 🔥 IR AL CARRITO */
+function irCarrito(){
+  window.location.href = "https://jehualejandro.github.io/carrito/carrito.html";
+}
+
 actualizar();
 </script>
 
 </body>
 </html>
-
-
 
