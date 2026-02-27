@@ -12,7 +12,7 @@ body {
   margin: 0;
 }
 
-/* ===== BOTÓN FLOTANTE CARRITO ===== */
+/* BOTÓN FLOTANTE */
 .carrito-fijo {
   position: fixed;
   top: 15px;
@@ -38,7 +38,7 @@ body {
   border-radius: 50%;
 }
 
-/* ===== CONTENIDO ===== */
+/* CONTENIDO */
 .contenedor {
   max-width: 500px;
   margin: 80px auto 20px auto;
@@ -51,7 +51,6 @@ h2 {
   text-align: center;
 }
 
-/* ===== BOTONES ===== */
 button {
   padding: 14px;
   margin: 8px 0;
@@ -61,7 +60,7 @@ button {
   border: none;
   border-radius: 6px;
   font-weight: bold;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 .agregar {
@@ -73,23 +72,11 @@ button {
   background: #008f45;
   color: white;
 }
-
-/* Animación ligera */
-@keyframes pop {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-.animar {
-  animation: pop 0.3s ease;
-}
 </style>
 </head>
 
 <body>
 
-<!-- BOTÓN FLOTANTE -->
 <a href="https://jehualejandro.github.io/carrito/carrito.html" class="carrito-fijo">
   🛒
   <span class="burbuja" id="cantidad">0</span>
@@ -115,19 +102,16 @@ Agregar 1L – $205
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-/* GUARDAR */
 function guardarCarrito() {
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-/* ACTUALIZAR BURBUJA */
 function actualizarContador() {
   let total = 0;
   carrito.forEach(p => total += p.cantidad);
   document.getElementById("cantidad").textContent = total;
 }
 
-/* AGREGAR PRODUCTO */
 function agregar(boton, nombre, precio) {
 
   const existe = carrito.find(p => p.nombre === nombre);
@@ -141,21 +125,10 @@ function agregar(boton, nombre, precio) {
   guardarCarrito();
   actualizarContador();
 
-  /* CAMBIAR TEXTO A AGREGADO ✔ */
-  boton.textContent = "Agregado ✔";
+  // Cambio inmediato y permanente
+  boton.innerHTML = "Agregado ✔";
   boton.classList.remove("agregar");
   boton.classList.add("agregado");
-
-  /* ANIMAR BURBUJA */
-  const burbuja = document.getElementById("cantidad");
-  burbuja.classList.add("animar");
-
-  setTimeout(() => {
-    boton.textContent = "Agregar nuevamente";
-    boton.classList.remove("agregado");
-    boton.classList.add("agregar");
-    burbuja.classList.remove("animar");
-  }, 1500);
 }
 
 actualizarContador();
@@ -163,12 +136,3 @@ actualizarContador();
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
