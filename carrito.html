@@ -11,38 +11,47 @@ body{
 }
 
 .contenedor{
-  max-width:500px;
-  margin:20px auto;
+  max-width:600px;
+  margin:40px auto;
   background:#fff;
-  padding:20px;
-  border-radius:8px;
+  padding:25px;
+  border-radius:10px;
 }
 
-ul{padding-left:20px;}
+ul{
+  padding-left:20px;
+}
+
+li{
+  margin-bottom:12px;
+}
 
 button{
-  padding:10px;
+  padding:12px;
   margin:6px 0;
   width:100%;
   cursor:pointer;
+  border-radius:8px;
+  border:none;
+  font-weight:bold;
 }
 
 .whatsapp{
   background:#25D366;
   color:white;
-  border:none;
 }
 
 .borrar{
   background:#ddd;
   border:none;
-  margin-left:5px;
+  margin-left:10px;
+  padding:5px 8px;
+  cursor:pointer;
 }
 
 .volver{
   background:#3498db;
   color:white;
-  border:none;
 }
 </style>
 </head>
@@ -69,62 +78,71 @@ Enviar pedido por WhatsApp
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 function mostrar(){
-  const lista=document.getElementById("lista");
-  const totalSpan=document.getElementById("total");
+  const lista = document.getElementById("lista");
+  const totalSpan = document.getElementById("total");
 
-  lista.innerHTML="";
-  let total=0;
+  lista.innerHTML = "";
+  let total = 0;
 
-  carrito.forEach(p=>{
-    total+=p.precio*p.cantidad;
+  if(carrito.length === 0){
+    lista.innerHTML = "<p>La canasta está vacía</p>";
+    totalSpan.innerText = 0;
+    return;
+  }
 
-    lista.innerHTML+=`
+  carrito.forEach(p => {
+
+    const subtotal = p.precio * p.cantidad;
+    total += subtotal;
+
+    lista.innerHTML += `
       <li>
-        ${p.nombre} x${p.cantidad} - $${p.precio*p.cantidad}
-        <button class="borrar" onclick="eliminar('${p.nombre}')">🗑️</button>
+        ${p.nombre} ${p.tamano} x${p.cantidad} - $${subtotal}
+        <button class="borrar" onclick="eliminar('${p.nombre}','${p.tamano}')">🗑️</button>
       </li>
     `;
   });
 
-  totalSpan.innerText=total;
+  totalSpan.innerText = total;
 }
 
-function eliminar(nombre){
-  carrito=carrito.filter(p=>p.nombre!==nombre);
-  localStorage.setItem("carrito",JSON.stringify(carrito));
+function eliminar(nombre, tamano){
+  carrito = carrito.filter(p => 
+    !(p.nombre === nombre && p.tamano === tamano)
+  );
+
+  localStorage.setItem("carrito", JSON.stringify(carrito));
   mostrar();
 }
 
 function enviar(){
-  if(carrito.length===0){
+
+  if(carrito.length === 0){
     alert("La canasta está vacía");
     return;
   }
 
-  let mensaje="🛒 Pedido Supervin%0A%0A";
-  let total=0;
+  let mensaje = "🛒 Pedido Pintumex%0A%0A";
+  let total = 0;
 
-  carrito.forEach(p=>{
-    mensaje+=`${p.nombre} x${p.cantidad} - $${p.precio*p.cantidad}%0A`;
-    total+=p.precio*p.cantidad;
+  carrito.forEach(p => {
+    const subtotal = p.precio * p.cantidad;
+    mensaje += `${p.nombre} ${p.tamano} x${p.cantidad} - $${subtotal}%0A`;
+    total += subtotal;
   });
 
-  mensaje+=`%0ATotal: $${total}`;
+  mensaje += `%0ATotal: $${total}`;
 
-  window.open("https://wa.me/527771537270?text="+mensaje,"_blank");
+  window.open("https://wa.me/527771537270?text=" + mensaje, "_blank");
 }
 
 function volver(){
-  window.location.href="index.html";
+  window.location.href = "index.html";
 }
 
-document.addEventListener("DOMContentLoaded",mostrar);
+document.addEventListener("DOMContentLoaded", mostrar);
 </script>
 
 </body>
 </html>
-</body>
-</html>
-
-
 
