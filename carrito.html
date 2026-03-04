@@ -2,150 +2,129 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Canasta</title>
+<title>Producto Pintumex</title>
 
 <style>
 body{
-  font-family:Arial;
-  background:#f2f2f2;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f2f5f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.contenedor{
-  max-width:600px;
-  margin:40px auto;
-  background:#fff;
-  padding:25px;
-  border-radius:10px;
+.producto{
+  background: #ffffff;
+  padding: 30px;
+  width: 320px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  text-align: center;
+  border-top: 6px solid #0b3d91; /* Azul Pintumex */
+  transition: 0.3s;
 }
 
-ul{
-  padding-left:20px;
+.producto:hover{
+  transform: translateY(-5px);
 }
 
-li{
-  margin-bottom:12px;
+.producto h2{
+  margin-bottom: 5px;
+  color: #0b3d91;
 }
 
-button{
-  padding:12px;
-  margin:6px 0;
-  width:100%;
-  cursor:pointer;
-  border-radius:8px;
-  border:none;
-  font-weight:bold;
+.precio{
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: bold;
 }
 
-.whatsapp{
-  background:#25D366;
-  color:white;
+.contador{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
 }
 
-.borrar{
-  background:#ddd;
-  border:none;
-  margin-left:10px;
-  padding:5px 8px;
-  cursor:pointer;
+.btn{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-.volver{
-  background:#3498db;
-  color:white;
+/* Botón disminuir */
+.menos{
+  background: #e6e6e6;
+  color: #333;
+}
+
+/* Botón aumentar */
+.mas{
+  background: #0b3d91; /* Azul principal */
+  color: #fff;
+}
+
+/* Efecto hover */
+.btn:hover{
+  transform: scale(1.1);
+}
+
+/* Campo cantidad */
+input{
+  width: 60px;
+  text-align: center;
+  font-size: 18px;
+  border: 2px solid #0b3d91;
+  background: #fff;
+  padding: 8px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+input:focus{
+  outline: none;
+  border-color: #ffcc00; /* Amarillo acento */
+  box-shadow: 0 0 5px rgba(255,204,0,0.6);
 }
 </style>
 </head>
 
 <body>
 
-<div class="contenedor">
-<h2>🧺 Tu canasta</h2>
+<div class="producto">
+  <h2>450SR BLANCO BTE</h2>
+  <div class="precio">$150.00</div>
 
-<ul id="lista"></ul>
-
-<p><strong>Total: $<span id="total">0</span></strong></p>
-
-<button class="whatsapp" onclick="enviar()">
-Enviar pedido por WhatsApp
-</button>
-
-<script>
-function volver() {
-  window.location.href = "https://www.pintumex-sol.com.mx/inicio";
-}
-</script>
+  <div class="contador">
+    <button class="btn menos" onclick="disminuir()">−</button>
+    <input type="number" id="cantidad" value="1" min="1">
+    <button class="btn mas" onclick="aumentar()">+</button>
+  </div>
 </div>
 
 <script>
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+function aumentar(){
+  let cantidad = document.getElementById("cantidad");
+  cantidad.value = parseInt(cantidad.value) + 1;
+}
 
-function mostrar(){
-  const lista = document.getElementById("lista");
-  const totalSpan = document.getElementById("total");
-
-  lista.innerHTML = "";
-  let total = 0;
-
-  if(carrito.length === 0){
-    lista.innerHTML = "<p>La canasta está vacía</p>";
-    totalSpan.innerText = 0;
-    return;
+function disminuir(){
+  let cantidad = document.getElementById("cantidad");
+  if(cantidad.value > 1){
+    cantidad.value = parseInt(cantidad.value) - 1;
   }
-
-  carrito.forEach(p => {
-
-    const subtotal = p.precio * p.cantidad;
-    total += subtotal;
-
-    lista.innerHTML += `
-      <li>
-        ${p.nombre} ${p.tamano} x${p.cantidad} - $${subtotal}
-        <button class="borrar" onclick="eliminar('${p.nombre}','${p.tamano}')">🗑️</button>
-      </li>
-    `;
-  });
-
-  totalSpan.innerText = total;
 }
-
-function eliminar(nombre, tamano){
-  carrito = carrito.filter(p => 
-    !(p.nombre === nombre && p.tamano === tamano)
-  );
-
-  localStorage.setItem("carrito", JSON.stringify(carrito));
-  mostrar();
-}
-
-function enviar(){
-
-  if(carrito.length === 0){
-    alert("La canasta está vacía");
-    return;
-  }
-
-  let mensaje = "🛒 Pedido Pintumex%0A%0A";
-  let total = 0;
-
-  carrito.forEach(p => {
-    const subtotal = p.precio * p.cantidad;
-    mensaje += `${p.nombre} ${p.tamano} x${p.cantidad} - $${subtotal}%0A`;
-    total += subtotal;
-  });
-
-  mensaje += `%0ATotal: $${total}`;
-
-  window.open("https://wa.me/527771537270?text=" + mensaje, "_blank");
-}
-
-function volver(){
-  window.location.href = "index.html";
-}
-
-document.addEventListener("DOMContentLoaded", mostrar);
 </script>
 
 </body>
 </html>
+
 
 
