@@ -6,82 +6,39 @@
 
 <style>
 body{
-  font-family: 'Segoe UI', sans-serif;
-  background: #f4f6f9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  font-family: Arial, sans-serif;
 }
 
 .producto{
-  background: #ffffff;
-  padding: 30px;
-  width: 320px;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   text-align: center;
-  transition: 0.3s;
-}
-
-.producto:hover{
-  transform: translateY(-5px);
-}
-
-.producto h2{
-  margin-bottom: 5px;
-}
-
-.precio{
-  font-size: 20px;
-  color: #555;
-  margin-bottom: 20px;
 }
 
 .contador{
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  margin-top: 15px;
 }
 
-.btn{
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
+.contador button{
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
   border: none;
-  font-size: 22px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.menos{
-  background: #e0e0e0;
-}
-
-.mas{
   background: #000;
   color: #fff;
+  cursor: pointer;
 }
 
-.btn:hover{
-  transform: scale(1.1);
-}
-
-input{
+.contador input{
   width: 60px;
   text-align: center;
   font-size: 18px;
-  border: none;
-  background: #f0f0f0;
-  padding: 8px;
-  border-radius: 10px;
-}
-
-input:focus{
-  outline: none;
-  background: #e8e8e8;
+  margin: 0 10px;
 }
 </style>
 </head>
@@ -90,12 +47,12 @@ input:focus{
 
 <div class="producto">
   <h2>Nombre del Producto</h2>
-  <div class="precio">$150.00</div>
+  <p>$150.00</p>
 
   <div class="contador">
-    <button class="btn menos" onclick="disminuir()">−</button>
+    <button onclick="disminuir()">−</button>
     <input type="number" id="cantidad" value="1" min="1">
-    <button class="btn mas" onclick="aumentar()">+</button>
+    <button onclick="aumentar()">+</button>
   </div>
 </div>
 
@@ -115,6 +72,3 @@ function disminuir(){
 
 </body>
 </html>
-
-
-
