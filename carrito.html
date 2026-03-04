@@ -2,12 +2,12 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Producto Pintumex</title>
+<title>Producto</title>
 
 <style>
 body{
   font-family: 'Segoe UI', sans-serif;
-  background: #f2f5f9;
+  background: #f4f6f9;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,9 +19,8 @@ body{
   padding: 30px;
   width: 320px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
   text-align: center;
-  border-top: 6px solid #0b3d91; /* Azul Pintumex */
   transition: 0.3s;
 }
 
@@ -31,14 +30,12 @@ body{
 
 .producto h2{
   margin-bottom: 5px;
-  color: #0b3d91;
 }
 
 .precio{
-  font-size: 22px;
-  color: #333;
+  font-size: 20px;
+  color: #555;
   margin-bottom: 20px;
-  font-weight: bold;
 }
 
 .contador{
@@ -59,39 +56,32 @@ body{
   transition: 0.2s;
 }
 
-/* Botón disminuir */
 .menos{
-  background: #e6e6e6;
-  color: #333;
+  background: #e0e0e0;
 }
 
-/* Botón aumentar */
 .mas{
-  background: #0b3d91; /* Azul principal */
+  background: #000;
   color: #fff;
 }
 
-/* Efecto hover */
 .btn:hover{
   transform: scale(1.1);
 }
 
-/* Campo cantidad */
 input{
   width: 60px;
   text-align: center;
   font-size: 18px;
-  border: 2px solid #0b3d91;
-  background: #fff;
+  border: none;
+  background: #f0f0f0;
   padding: 8px;
   border-radius: 10px;
-  font-weight: bold;
 }
 
 input:focus{
   outline: none;
-  border-color: #ffcc00; /* Amarillo acento */
-  box-shadow: 0 0 5px rgba(255,204,0,0.6);
+  background: #e8e8e8;
 }
 </style>
 </head>
@@ -99,7 +89,7 @@ input:focus{
 <body>
 
 <div class="producto">
-  <h2>450SR BLANCO BTE</h2>
+  <h2>Nombre del Producto</h2>
   <div class="precio">$150.00</div>
 
   <div class="contador">
