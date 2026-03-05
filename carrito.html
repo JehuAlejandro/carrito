@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SUPERVIN 210 BLANCO OSTIÓN</title>
+
+<title>Carrito Pintumex</title>
 
 <style>
 
 body{
 font-family:Arial;
 margin:0;
-background:#f4f4f4;
 }
 
 /* HEADER */
@@ -48,44 +48,7 @@ padding:4px 7px;
 border-radius:50%;
 }
 
-/* PRODUCTO */
-
-.seccion{
-display:flex;
-gap:60px;
-padding:50px;
-max-width:1100px;
-margin:auto;
-background:white;
-}
-
-.imagen{
-width:320px;
-}
-
-h1{
-margin:0;
-}
-
-.precio{
-font-size:40px;
-color:#00a650;
-margin:20px 0;
-}
-
-.btn{
-width:100%;
-padding:18px;
-margin-bottom:10px;
-background:#00a650;
-color:white;
-border:none;
-font-size:16px;
-border-radius:8px;
-cursor:pointer;
-}
-
-/* PANEL CARRITO */
+/* PANEL */
 
 .carrito-panel{
 position:fixed;
@@ -128,14 +91,29 @@ margin-bottom:15px;
 width:60px;
 }
 
+/* CONTROLES */
+
 .controles button{
 margin:2px;
 padding:4px 8px;
 }
 
+/* FOOTER */
+
 .carrito-footer{
 padding:20px;
 border-top:1px solid #eee;
+}
+
+.btn-vaciar{
+width:100%;
+background:#ff4d4d;
+color:white;
+padding:12px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+margin-bottom:10px;
 }
 
 .btn-whatsapp{
@@ -144,15 +122,16 @@ background:#25D366;
 color:white;
 padding:14px;
 border:none;
-font-size:16px;
-cursor:pointer;
 border-radius:6px;
+cursor:pointer;
 }
 
 </style>
 </head>
 
 <body>
+
+<!-- HEADER -->
 
 <div class="header">
 
@@ -164,53 +143,6 @@ border-radius:6px;
 </div>
 
 </div>
-
-<!-- PRODUCTO -->
-
-<section class="seccion">
-
-<img class="imagen"
-src="https://pintumex.com.mx/wp-content/uploads/Mock-Up-2025-Supervin-Frente-19-L.png">
-
-<div>
-
-<h1>SUPERVIN 210 BLANCO OSTIÓN</h1>
-
-<div class="precio">$3,176 MXN</div>
-
-<button class="btn"
-onclick="agregarProducto(
-'SUPERVIN 210 BLANCO OSTIÓN',
-'19L',
-3176,
-'https://pintumex.com.mx/wp-content/uploads/Mock-Up-2025-Supervin-Frente-19-L.png'
-)">
-Agregar 19L – $3,176
-</button>
-
-<button class="btn"
-onclick="agregarProducto(
-'SUPERVIN 210 BLANCO OSTIÓN',
-'4L',
-722,
-'https://pintumex.com.mx/wp-content/uploads/Mock-Up-2025-Supervin-Frente-19-L.png'
-)">
-Agregar 4L – $722
-</button>
-
-<button class="btn"
-onclick="agregarProducto(
-'SUPERVIN 210 BLANCO OSTIÓN',
-'1L',
-205,
-'https://pintumex.com.mx/wp-content/uploads/Mock-Up-2025-Supervin-Frente-19-L.png'
-)">
-Agregar 1L – $205
-</button>
-
-</div>
-
-</section>
 
 <!-- PANEL CARRITO -->
 
@@ -226,6 +158,10 @@ Agregar 1L – $205
 <div class="carrito-footer">
 
 <p>Total: $<span id="total">0</span></p>
+
+<button onclick="vaciarCarrito()" class="btn-vaciar">
+🗑 Vaciar carrito
+</button>
 
 <button class="btn-whatsapp" onclick="enviarPedido()">
 Enviar pedido por WhatsApp
@@ -342,7 +278,17 @@ actualizarCarrito();
 
 }
 
-/* ABRIR CARRITO */
+/* VACIAR */
+
+function vaciarCarrito(){
+
+carrito=[];
+guardar();
+actualizarCarrito();
+
+}
+
+/* ABRIR */
 
 function abrirCarrito(){
 document.getElementById("carritoPanel").classList.add("abierto");
@@ -354,7 +300,7 @@ function cerrarCarrito(){
 document.getElementById("carritoPanel").classList.remove("abierto");
 }
 
-/* TOGGLE ICONO */
+/* TOGGLE */
 
 function toggleCarrito(){
 document.getElementById("carritoPanel").classList.toggle("abierto");
@@ -365,7 +311,6 @@ document.getElementById("carritoPanel").classList.toggle("abierto");
 function enviarPedido(){
 
 let mensaje="🧾 Pedido Pintumex%0A%0A";
-
 let total=0;
 
 carrito.forEach(p=>{
