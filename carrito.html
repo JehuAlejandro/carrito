@@ -2,127 +2,117 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Carrito Pintumex</title>
+<title>Pintumex</title>
 
 <style>
 
 body{
 font-family:Arial;
 margin:0;
+background:#f5f5f5;
 }
 
-/* HEADER */
+/* BOTON CARRITO */
 
-.header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px;
-background:white;
-border-bottom:1px solid #eee;
-}
-
-.logo{
-font-size:26px;
-font-weight:bold;
-}
-
-/* ICONO CARRITO */
-
-.carrito{
-position:relative;
-font-size:26px;
-cursor:pointer;
-}
-
-.burbuja{
-position:absolute;
-top:-8px;
-right:-10px;
-background:red;
-color:white;
-font-size:12px;
-padding:4px 7px;
-border-radius:50%;
-}
-
-/* PANEL */
-
-.carrito-panel{
+.boton-carrito{
 position:fixed;
-right:-380px;
-top:0;
-width:360px;
-height:100%;
-background:white;
-box-shadow:-5px 0 20px rgba(0,0,0,0.2);
-transition:.3s;
-display:flex;
-flex-direction:column;
+top:20px;
+right:20px;
+background:#0aa84f;
+color:white;
+border:none;
+padding:12px 15px;
+border-radius:50px;
+font-size:18px;
+cursor:pointer;
 z-index:999;
 }
 
-.carrito-panel.abierto{
+/* PANEL CARRITO */
+
+.panel-carrito{
+position:fixed;
+top:0;
+right:-400px;
+width:350px;
+height:100%;
+background:white;
+box-shadow:-5px 0 15px rgba(0,0,0,0.2);
+transition:0.3s;
+display:flex;
+flex-direction:column;
+z-index:1000;
+}
+
+.panel-carrito.activo{
 right:0;
 }
 
 .carrito-header{
 display:flex;
 justify-content:space-between;
-padding:20px;
+padding:15px;
 border-bottom:1px solid #eee;
+font-weight:bold;
 }
 
 #listaCarrito{
 flex:1;
 overflow:auto;
-padding:20px;
+padding:10px;
 }
 
-.producto-carrito{
+.item{
+border-bottom:1px solid #eee;
+padding:10px;
+}
+
+.cantidad{
 display:flex;
-gap:10px;
-margin-bottom:15px;
+gap:5px;
+margin-top:5px;
 }
 
-.producto-carrito img{
-width:60px;
+.cantidad button{
+background:#ddd;
+border:none;
+padding:5px 10px;
+cursor:pointer;
 }
-
-/* CONTROLES */
-
-.controles button{
-margin:2px;
-padding:4px 8px;
-}
-
-/* FOOTER */
 
 .carrito-footer{
-padding:20px;
+padding:15px;
 border-top:1px solid #eee;
 }
 
-.btn-vaciar{
+.vaciar{
 width:100%;
 background:#ff4d4d;
 color:white;
-padding:12px;
 border:none;
+padding:10px;
 border-radius:6px;
+margin-top:10px;
 cursor:pointer;
-margin-bottom:10px;
 }
 
-.btn-whatsapp{
+.whatsapp{
 width:100%;
 background:#25D366;
 color:white;
-padding:14px;
 border:none;
+padding:10px;
 border-radius:6px;
+margin-top:10px;
+cursor:pointer;
+}
+
+.agregar{
+background:#0aa84f;
+color:white;
+border:none;
+padding:12px;
+border-radius:8px;
 cursor:pointer;
 }
 
@@ -131,39 +121,34 @@ cursor:pointer;
 
 <body>
 
-<!-- HEADER -->
+<h1 style="padding:20px;">Pintumex</h1>
 
-<div class="header">
+<!-- BOTON CARRITO -->
 
-<div class="logo">Pintumex</div>
-
-<div class="carrito" onclick="toggleCarrito()">
-🛒
-<div class="burbuja" id="contador">0</div>
-</div>
-
-</div>
+<button class="boton-carrito" onclick="abrirCarrito()">
+🛒 <span id="contador">0</span>
+</button>
 
 <!-- PANEL CARRITO -->
 
-<div id="carritoPanel" class="carrito-panel">
+<div id="panelCarrito" class="panel-carrito">
 
 <div class="carrito-header">
-<h3>Tu carrito</h3>
-<button onclick="cerrarCarrito()">✖</button>
+Tu carrito
+<button onclick="cerrarCarrito()">✕</button>
 </div>
 
 <div id="listaCarrito"></div>
 
 <div class="carrito-footer">
 
-<p>Total: $<span id="total">0</span></p>
+<b>Total: $<span id="total">0</span></b>
 
-<button onclick="vaciarCarrito()" class="btn-vaciar">
+<button class="vaciar" onclick="vaciarCarrito()">
 🗑 Vaciar carrito
 </button>
 
-<button class="btn-whatsapp" onclick="enviarPedido()">
+<button class="whatsapp" onclick="enviarWhatsApp()">
 Enviar pedido por WhatsApp
 </button>
 
@@ -171,167 +156,123 @@ Enviar pedido por WhatsApp
 
 </div>
 
+<!-- PRODUCTO EJEMPLO -->
+
+<div style="padding:20px">
+
+<h2>SUPERVIN 210 BLANCO OSTIÓN</h2>
+
+<p><b>$3176</b></p>
+
+<button class="agregar" onclick="agregarProducto('SUPERVIN 210 BLANCO OSTIÓN',3176)">
+Agregar al carrito
+</button>
+
+</div>
+
 <script>
 
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let carrito=[]
 
-function guardar(){
-localStorage.setItem("carrito", JSON.stringify(carrito));
+function abrirCarrito(){
+document.getElementById("panelCarrito").classList.add("activo")
+}
+
+function cerrarCarrito(){
+document.getElementById("panelCarrito").classList.remove("activo")
+}
+
+function agregarProducto(nombre,precio){
+
+let producto=carrito.find(p=>p.nombre===nombre)
+
+if(producto){
+producto.cantidad++
+}else{
+carrito.push({nombre,precio,cantidad:1})
+}
+
+actualizarCarrito()
+abrirCarrito()
 }
 
 function actualizarCarrito(){
 
-const lista = document.getElementById("listaCarrito");
-const contador = document.getElementById("contador");
-const totalHTML = document.getElementById("total");
+let lista=document.getElementById("listaCarrito")
+let total=0
+let contador=0
 
-lista.innerHTML="";
+lista.innerHTML=""
 
-let total=0;
-let cantidad=0;
+carrito.forEach((producto,index)=>{
 
-carrito.forEach((p,i)=>{
+let subtotal=producto.precio*producto.cantidad
+total+=subtotal
+contador+=producto.cantidad
 
-const subtotal = p.precio * p.cantidad;
+lista.innerHTML+=`
 
-total += subtotal;
-cantidad += p.cantidad;
+<div class="item">
 
-lista.innerHTML += `
-<div class="producto-carrito">
+<b>${producto.nombre}</b><br>
 
-<img src="${p.imagen}">
+$${producto.precio}
 
-<div>
+<div class="cantidad">
 
-<strong>${p.nombre}</strong><br>
-${p.tamano}<br>
+<button onclick="cambiarCantidad(${index},-1)">-</button>
 
-<div class="controles">
-<button onclick="restar(${i})">-</button>
-${p.cantidad}
-<button onclick="sumar(${i})">+</button>
-</div>
+${producto.cantidad}
 
-Subtotal: $${subtotal.toLocaleString()}
+<button onclick="cambiarCantidad(${index},1)">+</button>
 
 </div>
 
+Subtotal: $${subtotal}
+
 </div>
-`;
 
-});
+`
 
-contador.textContent = cantidad;
-totalHTML.textContent = total.toLocaleString();
+})
 
-}
-
-/* AGREGAR PRODUCTO */
-
-function agregarProducto(nombre,tamano,precio,imagen){
-
-const existe = carrito.find(p =>
-p.nombre===nombre && p.tamano===tamano
-);
-
-if(existe){
-existe.cantidad++;
-}else{
-
-carrito.push({
-nombre:nombre,
-tamano:tamano,
-precio:precio,
-imagen:imagen,
-cantidad:1
-});
+document.getElementById("total").innerText=total
+document.getElementById("contador").innerText=contador
 
 }
 
-guardar();
-actualizarCarrito();
-abrirCarrito();
+function cambiarCantidad(index,cambio){
 
+carrito[index].cantidad+=cambio
+
+if(carrito[index].cantidad<=0){
+carrito.splice(index,1)
 }
 
-/* SUMAR */
-
-function sumar(i){
-carrito[i].cantidad++;
-guardar();
-actualizarCarrito();
-}
-
-/* RESTAR */
-
-function restar(i){
-
-carrito[i].cantidad--;
-
-if(carrito[i].cantidad<=0){
-carrito.splice(i,1);
-}
-
-guardar();
-actualizarCarrito();
+actualizarCarrito()
 
 }
-
-/* VACIAR */
 
 function vaciarCarrito(){
 
-carrito=[];
-guardar();
-actualizarCarrito();
+carrito=[]
+actualizarCarrito()
 
 }
 
-/* ABRIR */
+function enviarWhatsApp(){
 
-function abrirCarrito(){
-document.getElementById("carritoPanel").classList.add("abierto");
-}
-
-/* CERRAR */
-
-function cerrarCarrito(){
-document.getElementById("carritoPanel").classList.remove("abierto");
-}
-
-/* TOGGLE */
-
-function toggleCarrito(){
-document.getElementById("carritoPanel").classList.toggle("abierto");
-}
-
-/* WHATSAPP */
-
-function enviarPedido(){
-
-let mensaje="🧾 Pedido Pintumex%0A%0A";
-let total=0;
+let mensaje="Pedido Pintumex:%0A"
 
 carrito.forEach(p=>{
+mensaje+=`${p.nombre} x${p.cantidad} = $${p.precio*p.cantidad}%0A`
+})
 
-const subtotal=p.precio*p.cantidad;
+mensaje+=`Total: $${document.getElementById("total").innerText}`
 
-mensaje+=`${p.nombre} ${p.tamano}%0A`;
-mensaje+=`Cantidad: ${p.cantidad}%0A`;
-mensaje+=`Subtotal: $${subtotal}%0A%0A`;
-
-total+=subtotal;
-
-});
-
-mensaje+=`TOTAL: $${total}`;
-
-window.open(`https://wa.me/5217771537270?text=${mensaje}`);
+window.open(`https://wa.me/5217770000000?text=${mensaje}`)
 
 }
-
-actualizarCarrito();
 
 </script>
 
