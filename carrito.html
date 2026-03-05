@@ -1,123 +1,86 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Canasta</title>
-
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
+
+body{
+  font-family: 'Inter', Arial, sans-serif;
+  background:#f2f2f2;
 }
 
-.contenedor {
-  max-width: 500px;
-  margin: 20px auto;
-  background: #fff;
-  padding: 15px;
-  border-radius: 6px;
+.contenedor{
+  max-width:520px;
+  margin:30px auto;
+  background:white;
+  padding:25px;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
 }
 
-button {
-  padding: 10px;
-  margin: 6px 0;
-  width: 100%;
-  cursor: pointer;
+h2{
+  color:#2968c8;
 }
 
-.whatsapp {
-  background: #25D366;
-  color: white;
-  border: none;
-  font-size: 16px;
+ul{
+  list-style:none;
+  padding:0;
 }
 
-.borrar {
-  background: #ddd;
-  border: none;
-  margin-left: 5px;
+li{
+  background:#f8f9fc;
+  padding:15px;
+  margin-bottom:10px;
+  border-radius:8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-.volver {
-  background: #3498db;
-  color: white;
-  border: none;
+button{
+  border:none;
+  padding:8px 12px;
+  border-radius:6px;
+  cursor:pointer;
 }
+
+/* Botones + - */
+button[onclick*="sumar"]{
+  background:#00a650;
+  color:white;
+}
+
+button[onclick*="restar"]{
+  background:#2968c8;
+  color:white;
+}
+
+/* Botón borrar */
+.borrar{
+  background:#e74c3c;
+  color:white;
+  margin-left:8px;
+}
+
+/* WhatsApp */
+.whatsapp{
+  width:100%;
+  padding:14px;
+  background:#25D366;
+  color:white;
+  font-size:16px;
+  margin-top:10px;
+}
+
+/* Volver */
+.volver{
+  width:100%;
+  padding:14px;
+  background:#2968c8;
+  color:white;
+  margin-top:10px;
+}
+
+#total{
+  color:#00a650;
+  font-size:22px;
+}
+
 </style>
-</head>
-
-<body>
-
-<div class="contenedor">
-<h2>🧺 Tu canasta</h2>
-
-<ul id="lista"></ul>
-
-<p><strong>Total: $<span id="total">0</span></strong></p>
-
-<button class="whatsapp" onclick="enviar()">
-Enviar pedido por WhatsApp
-</button>
-
-<button class="volver" onclick="volver()">
-⬅️ Seguir comprando
-</button>
-</div>
-
-<script>
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-function guardar(){
-  localStorage.setItem("carrito", JSON.stringify(carrito));
-}
-
-function actualizar(){
-  let total = 0;
-  carrito.forEach(p => total += p.cantidad);
-  document.getElementById("contador").textContent = total;
-}
-
-function agregar(tamano, precio, boton){
-
-  const nombreProducto = "SUPERVIN 210 BLANCO OSTIÓN";
-
-  const existe = carrito.find(p => 
-    p.nombre === nombreProducto && p.tamano === tamano
-  );
-
-  if(existe){
-    existe.cantidad++;
-  }else{
-    carrito.push({
-      nombre: nombreProducto,
-      tamano: tamano,
-      precio: precio,
-      cantidad: 1
-    });
-  }
-
-  guardar();
-  actualizar();
-
-  const original = boton.innerHTML;
-  boton.innerHTML = "Agregado ✔";
-  boton.style.background = "#2968c8";
-
-  setTimeout(()=>{
-    boton.innerHTML = original;
-    boton.style.background = "#00a650";
-  }, 400);
-}
-
-function irCarrito(){
-  window.location.href = "carrito.html";
-}
-
-actualizar();
-</script>
-
-
-</body>
-</html>
-
 
