@@ -3,99 +3,158 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Canasta</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SUPERVIN 210 BLANCO OSTIÓN</title>
 
 <style>
 
+/* ===== GENERAL ===== */
+
 body{
-  font-family: Arial, sans-serif;
-  background:#f2f2f2;
-  margin:0;
+font-family:Arial;
+margin:0;
+background:#f5f5f5;
 }
 
-/* CONTENEDOR */
-.contenedor{
-  max-width:520px;
-  margin:30px auto;
-  background:white;
-  padding:25px;
-  border-radius:10px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+/* ===== HEADER ===== */
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px;
+background:white;
+border-bottom:1px solid #eee;
 }
 
-/* TITULO */
-h2{
-  color:#2968c8;
-  margin-bottom:20px;
+.logo{
+font-size:24px;
+font-weight:bold;
+color:#2968c8;
 }
 
-/* LISTA */
-ul{
-  list-style:none;
-  padding:0;
+/* ===== PRODUCTO ===== */
+
+.producto{
+display:flex;
+gap:40px;
+padding:40px;
+max-width:1100px;
+margin:auto;
+background:white;
 }
 
-li{
-  background:#f8f9fc;
-  padding:15px;
-  margin-bottom:10px;
-  border-radius:8px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.producto img{
+width:320px;
 }
 
-/* BOTONES */
-button{
-  border:none;
-  padding:8px 12px;
-  border-radius:6px;
-  cursor:pointer;
+.info h1{
+margin:0;
 }
 
-/* SUMAR */
-.sumar{
-  background:#00a650;
-  color:white;
+.precio{
+font-size:40px;
+color:#00a650;
+margin:20px 0;
 }
 
-/* RESTAR */
-.restar{
-  background:#2968c8;
-  color:white;
+.btn{
+background:#00a650;
+color:white;
+border:none;
+padding:15px;
+margin-bottom:10px;
+width:100%;
+font-size:16px;
+cursor:pointer;
+border-radius:8px;
 }
 
-/* BORRAR */
-.borrar{
-  background:#e74c3c;
-  color:white;
-  margin-left:8px;
+/* ===== ICONO CARRITO ===== */
+
+.carrito-icono{
+position:fixed;
+top:20px;
+right:20px;
+background:#2968c8;
+color:white;
+padding:12px;
+border-radius:50%;
+font-size:22px;
+cursor:pointer;
 }
 
-/* WHATSAPP */
-.whatsapp{
-  width:100%;
-  padding:14px;
-  background:#25D366;
-  color:white;
-  font-size:16px;
-  margin-top:10px;
+#contador{
+background:red;
+color:white;
+font-size:12px;
+padding:4px 7px;
+border-radius:50%;
+position:absolute;
+margin-left:-8px;
+margin-top:-8px;
 }
 
-/* VOLVER */
-.volver{
-  width:100%;
-  padding:14px;
-  background:#2968c8;
-  color:white;
-  margin-top:10px;
+/* ===== PANEL CARRITO ===== */
+
+.carrito-panel{
+position:fixed;
+right:-380px;
+top:0;
+width:360px;
+height:100%;
+background:white;
+box-shadow:-5px 0 20px rgba(0,0,0,0.2);
+transition:.3s;
+display:flex;
+flex-direction:column;
 }
 
-/* TOTAL */
-#total{
-  color:#00a650;
-  font-size:22px;
+.carrito-panel.abierto{
+right:0;
+}
+
+.carrito-header{
+display:flex;
+justify-content:space-between;
+padding:20px;
+border-bottom:1px solid #eee;
+}
+
+#listaCarrito{
+flex:1;
+overflow:auto;
+padding:20px;
+}
+
+.producto-carrito{
+display:flex;
+gap:10px;
+margin-bottom:15px;
+}
+
+.producto-carrito img{
+width:60px;
+}
+
+.controles button{
+margin:2px;
+}
+
+.carrito-footer{
+padding:20px;
+border-top:1px solid #eee;
+}
+
+.btn-whatsapp{
+width:100%;
+background:#25D366;
+color:white;
+padding:14px;
+border:none;
+font-size:16px;
+cursor:pointer;
+border-radius:6px;
 }
 
 </style>
@@ -103,138 +162,234 @@ button{
 
 <body>
 
-<div class="contenedor">
+<div class="header">
+<div class="logo">Pintumex</div>
+</div>
 
-<h2>🧺 Tu canasta</h2>
+<!-- ICONO CARRITO -->
+<div class="carrito-icono" onclick="abrirCarrito()">
+🛒
+<span id="contador">0</span>
+</div>
 
-<ul id="lista"></ul>
+<!-- PRODUCTO -->
 
-<p><strong>Total: $<span id="total">0</span></strong></p>
+<div class="producto">
 
-<button class="whatsapp" onclick="enviar()">
+<img src="https://pintumex.com.mx/wp-content/uploads/Mock-Up-2025-Supervin-Frente-19-L.png">
+
+<div class="info">
+
+<h1>SUPERVIN 210 BLANCO OSTIÓN</h1>
+
+<div class="precio">$3,176</div>
+
+<button class="btn"
+onclick="agregarProducto(
+'SUPERVIN 210 BLANCO OSTIÓN',
+'19L',
+3176,
+'https://pintumex.com.mx/wp-content/uploads/Mock-Up-2025-Supervin-Frente-19-L.png'
+)">
+Agregar 19L
+</button>
+
+<button class="btn"
+onclick="agregarProducto(
+'SUPERVIN 210 BLANCO OSTIÓN',
+'4L',
+722,
+'https://pintumex.com.mx/wp-content/uploads/Mock-Up-2025-Supervin-Frente-19-L.png'
+)">
+Agregar 4L
+</button>
+
+<button class="btn"
+onclick="agregarProducto(
+'SUPERVIN 210 BLANCO OSTIÓN',
+'1L',
+205,
+'https://pintumex.com.mx/wp-content/uploads/Mock-Up-2025-Supervin-Frente-19-L.png'
+)">
+Agregar 1L
+</button>
+
+</div>
+
+</div>
+
+<!-- PANEL CARRITO -->
+
+<div id="carritoPanel" class="carrito-panel">
+
+<div class="carrito-header">
+<h3>Tu carrito</h3>
+<button onclick="cerrarCarrito()">✖</button>
+</div>
+
+<div id="listaCarrito"></div>
+
+<div class="carrito-footer">
+<p>Total: $<span id="total">0</span></p>
+
+<button class="btn-whatsapp" onclick="enviarPedido()">
 Enviar pedido por WhatsApp
 </button>
 
-<button class="volver" onclick="volver()">
-⬅️ Seguir comprando
-</button>
+</div>
 
 </div>
 
 <script>
 
+/* ===== CARRITO ===== */
+
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-/* GUARDAR CARRITO */
 function guardar(){
-  localStorage.setItem("carrito", JSON.stringify(carrito));
+localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-/* MOSTRAR CARRITO */
-function mostrar(){
+function actualizarCarrito(){
 
-  const lista = document.getElementById("lista");
-  const totalHTML = document.getElementById("total");
+const lista = document.getElementById("listaCarrito");
+const contador = document.getElementById("contador");
+const totalHTML = document.getElementById("total");
 
-  lista.innerHTML="";
+lista.innerHTML="";
 
-  let total=0;
+let total=0;
+let cantidad=0;
 
-  carrito.forEach((p,i)=>{
+carrito.forEach((p,i)=>{
 
-    total += p.precio * p.cantidad;
+const subtotal = p.precio * p.cantidad;
 
-    lista.innerHTML += `
-    <li>
+total += subtotal;
+cantidad += p.cantidad;
 
-      <div>
-        <strong>${p.nombre}</strong><br>
-        ${p.tamano} - $${p.precio}
-      </div>
+lista.innerHTML += `
+<div class="producto-carrito">
 
-      <div>
+<img src="${p.imagen}">
 
-        <button class="restar" onclick="restar(${i})">-</button>
+<div>
 
-        ${p.cantidad}
+<strong>${p.nombre}</strong><br>
+${p.tamano}<br>
 
-        <button class="sumar" onclick="sumar(${i})">+</button>
+<div class="controles">
+<button onclick="restar(${i})">-</button>
+${p.cantidad}
+<button onclick="sumar(${i})">+</button>
+</div>
 
-        <button class="borrar" onclick="borrar(${i})">X</button>
+$${subtotal}
 
-      </div>
+</div>
 
-    </li>
-    `;
-  });
+</div>
+`;
+});
 
-  totalHTML.textContent = total.toLocaleString();
+contador.textContent = cantidad;
+totalHTML.textContent = total.toLocaleString();
 
 }
 
-/* SUMAR PRODUCTO */
+/* ===== AGREGAR PRODUCTO ===== */
+
+function agregarProducto(nombre,tamano,precio,imagen){
+
+const existe = carrito.find(p =>
+p.nombre===nombre && p.tamano===tamano
+);
+
+if(existe){
+existe.cantidad++;
+}else{
+
+carrito.push({
+nombre:nombre,
+tamano:tamano,
+precio:precio,
+imagen:imagen,
+cantidad:1
+});
+
+}
+
+guardar();
+actualizarCarrito();
+abrirCarrito();
+
+}
+
+/* ===== SUMAR ===== */
+
 function sumar(i){
-
-  carrito[i].cantidad++;
-
-  guardar();
-  mostrar();
-
+carrito[i].cantidad++;
+guardar();
+actualizarCarrito();
 }
 
-/* RESTAR PRODUCTO */
+/* ===== RESTAR ===== */
+
 function restar(i){
 
-  carrito[i].cantidad--;
+carrito[i].cantidad--;
 
-  if(carrito[i].cantidad <=0){
-    carrito.splice(i,1);
-  }
+if(carrito[i].cantidad<=0){
+carrito.splice(i,1);
+}
 
-  guardar();
-  mostrar();
+guardar();
+actualizarCarrito();
 
 }
 
-/* BORRAR */
-function borrar(i){
+/* ===== ABRIR ===== */
 
-  carrito.splice(i,1);
+function abrirCarrito(){
+document.getElementById("carritoPanel").classList.add("abierto");
+}
 
-  guardar();
-  mostrar();
+function cerrarCarrito(){
+document.getElementById("carritoPanel").classList.remove("abierto");
+}
+
+/* ===== WHATSAPP ===== */
+
+function enviarPedido(){
+
+let mensaje="🧾 Pedido Pintumex%0A%0A";
+
+let total=0;
+
+carrito.forEach(p=>{
+
+const subtotal = p.precio * p.cantidad;
+
+mensaje+=`${p.nombre} ${p.tamano}%0A`;
+mensaje+=`Cantidad: ${p.cantidad}%0A`;
+mensaje+=`Subtotal: $${subtotal}%0A%0A`;
+
+total+=subtotal;
+
+});
+
+mensaje+=`TOTAL: $${total}`;
+
+window.open(`https://wa.me/5210000000000?text=${mensaje}`);
 
 }
 
-/* ENVIAR WHATSAPP */
-function enviar(){
-
-  if(carrito.length===0){
-    alert("Tu carrito está vacío");
-    return;
-  }
-
-  let mensaje="Hola quiero pedir:%0A";
-
-  carrito.forEach(p=>{
-    mensaje += `${p.nombre} ${p.tamano} x${p.cantidad}%0A`;
-  });
-
-  const telefono="5210000000000"; // PON TU NUMERO
-
-  window.open(`https://wa.me/${telefono}?text=${mensaje}`);
-
-}
-
-/* VOLVER */
-function volver(){
-  window.location.href="https://www.pintumex-sol.com.mx/inicio";
-}
-
-mostrar();
+actualizarCarrito();
 
 </script>
 
 </body>
 </html>
 ```
+
+
