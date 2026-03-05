@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -30,7 +29,7 @@ font-size:26px;
 font-weight:bold;
 }
 
-/* CARRITO ICONO */
+/* ICONO CARRITO */
 
 .carrito{
 position:relative;
@@ -86,7 +85,7 @@ border-radius:8px;
 cursor:pointer;
 }
 
-/* CARRITO PANEL */
+/* PANEL CARRITO */
 
 .carrito-panel{
 position:fixed;
@@ -159,7 +158,7 @@ border-radius:6px;
 
 <div class="logo">Pintumex</div>
 
-<div class="carrito" onclick="abrirCarrito()">
+<div class="carrito" onclick="toggleCarrito()">
 🛒
 <div class="burbuja" id="contador">0</div>
 </div>
@@ -278,7 +277,7 @@ ${p.cantidad}
 <button onclick="sumar(${i})">+</button>
 </div>
 
-Subtotal: $${subtotal}
+Subtotal: $${subtotal.toLocaleString()}
 
 </div>
 
@@ -355,6 +354,12 @@ function cerrarCarrito(){
 document.getElementById("carritoPanel").classList.remove("abierto");
 }
 
+/* TOGGLE ICONO */
+
+function toggleCarrito(){
+document.getElementById("carritoPanel").classList.toggle("abierto");
+}
+
 /* WHATSAPP */
 
 function enviarPedido(){
@@ -387,7 +392,3 @@ actualizarCarrito();
 
 </body>
 </html>
-```
-
-
-
