@@ -1,10 +1,20 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Canasta</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 
 body{
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: Arial, sans-serif;
   background:#f2f2f2;
+  margin:0;
 }
 
+/* CONTENEDOR */
 .contenedor{
   max-width:520px;
   margin:30px auto;
@@ -14,10 +24,13 @@ body{
   box-shadow:0 5px 15px rgba(0,0,0,0.08);
 }
 
+/* TITULO */
 h2{
   color:#2968c8;
+  margin-bottom:20px;
 }
 
+/* LISTA */
 ul{
   list-style:none;
   padding:0;
@@ -33,6 +46,7 @@ li{
   align-items:center;
 }
 
+/* BOTONES */
 button{
   border:none;
   padding:8px 12px;
@@ -40,25 +54,26 @@ button{
   cursor:pointer;
 }
 
-/* Botones + - */
-button[onclick*="sumar"]{
+/* SUMAR */
+.sumar{
   background:#00a650;
   color:white;
 }
 
-button[onclick*="restar"]{
+/* RESTAR */
+.restar{
   background:#2968c8;
   color:white;
 }
 
-/* Botón borrar */
+/* BORRAR */
 .borrar{
   background:#e74c3c;
   color:white;
   margin-left:8px;
 }
 
-/* WhatsApp */
+/* WHATSAPP */
 .whatsapp{
   width:100%;
   padding:14px;
@@ -68,7 +83,7 @@ button[onclick*="restar"]{
   margin-top:10px;
 }
 
-/* Volver */
+/* VOLVER */
 .volver{
   width:100%;
   padding:14px;
@@ -77,10 +92,149 @@ button[onclick*="restar"]{
   margin-top:10px;
 }
 
+/* TOTAL */
 #total{
   color:#00a650;
   font-size:22px;
 }
 
 </style>
+</head>
 
+<body>
+
+<div class="contenedor">
+
+<h2>🧺 Tu canasta</h2>
+
+<ul id="lista"></ul>
+
+<p><strong>Total: $<span id="total">0</span></strong></p>
+
+<button class="whatsapp" onclick="enviar()">
+Enviar pedido por WhatsApp
+</button>
+
+<button class="volver" onclick="volver()">
+⬅️ Seguir comprando
+</button>
+
+</div>
+
+<script>
+
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+/* GUARDAR CARRITO */
+function guardar(){
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+/* MOSTRAR CARRITO */
+function mostrar(){
+
+  const lista = document.getElementById("lista");
+  const totalHTML = document.getElementById("total");
+
+  lista.innerHTML="";
+
+  let total=0;
+
+  carrito.forEach((p,i)=>{
+
+    total += p.precio * p.cantidad;
+
+    lista.innerHTML += `
+    <li>
+
+      <div>
+        <strong>${p.nombre}</strong><br>
+        ${p.tamano} - $${p.precio}
+      </div>
+
+      <div>
+
+        <button class="restar" onclick="restar(${i})">-</button>
+
+        ${p.cantidad}
+
+        <button class="sumar" onclick="sumar(${i})">+</button>
+
+        <button class="borrar" onclick="borrar(${i})">X</button>
+
+      </div>
+
+    </li>
+    `;
+  });
+
+  totalHTML.textContent = total.toLocaleString();
+
+}
+
+/* SUMAR PRODUCTO */
+function sumar(i){
+
+  carrito[i].cantidad++;
+
+  guardar();
+  mostrar();
+
+}
+
+/* RESTAR PRODUCTO */
+function restar(i){
+
+  carrito[i].cantidad--;
+
+  if(carrito[i].cantidad <=0){
+    carrito.splice(i,1);
+  }
+
+  guardar();
+  mostrar();
+
+}
+
+/* BORRAR */
+function borrar(i){
+
+  carrito.splice(i,1);
+
+  guardar();
+  mostrar();
+
+}
+
+/* ENVIAR WHATSAPP */
+function enviar(){
+
+  if(carrito.length===0){
+    alert("Tu carrito está vacío");
+    return;
+  }
+
+  let mensaje="Hola quiero pedir:%0A";
+
+  carrito.forEach(p=>{
+    mensaje += `${p.nombre} ${p.tamano} x${p.cantidad}%0A`;
+  });
+
+  const telefono="5210000000000"; // PON TU NUMERO
+
+  window.open(`https://wa.me/${telefono}?text=${mensaje}`);
+
+}
+
+/* VOLVER */
+function volver(){
+  window.location.href="https://www.pintumex-sol.com.mx/inicio";
+}
+
+mostrar();
+
+</script>
+
+</body>
+</html>
+```
