@@ -12,8 +12,6 @@ margin:0;
 background:#f5f5f5;
 }
 
-/* CONTENEDOR */
-
 .contenedor{
 max-width:500px;
 margin:80px auto;
@@ -23,15 +21,10 @@ border-radius:10px;
 box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
-h2{
-margin-top:0;
-}
-
-/* PRODUCTOS */
-
 .producto{
 border-bottom:1px solid #ddd;
-padding:10px 0;
+padding:12px 0;
+position:relative;
 }
 
 .nombre{
@@ -41,8 +34,6 @@ font-weight:bold;
 .precio{
 color:#555;
 }
-
-/* BOTONES CANTIDAD */
 
 .cantidad{
 display:flex;
@@ -61,15 +52,24 @@ border-radius:5px;
 font-size:18px;
 }
 
-/* TOTAL */
+.borrar{
+position:absolute;
+right:0;
+top:10px;
+background:#ff4d4d;
+color:white;
+border:none;
+padding:6px 10px;
+border-radius:5px;
+cursor:pointer;
+font-size:14px;
+}
 
 .total{
 font-size:20px;
 font-weight:bold;
 margin-top:15px;
 }
-
-/* BOTONES */
 
 .vaciar{
 width:100%;
@@ -139,6 +139,8 @@ total += subtotal;
 contenedor.innerHTML += `
 <div class="producto">
 
+<button class="borrar" onclick="eliminarProducto(${index})">🗑</button>
+
 <div class="nombre">${producto.nombre}</div>
 <div class="precio">Precio: $${producto.precio}</div>
 
@@ -167,6 +169,14 @@ if(carrito[index].cantidad <=0){
 carrito.splice(index,1);
 }
 
+guardar();
+mostrarCarrito();
+
+}
+
+function eliminarProducto(index){
+
+carrito.splice(index,1);
 guardar();
 mostrarCarrito();
 
