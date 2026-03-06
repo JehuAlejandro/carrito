@@ -25,52 +25,34 @@ padding:12px 15px;
 border-radius:50px;
 font-size:18px;
 cursor:pointer;
-z-index:999;
 }
 
-/* PANEL CARRITO */
+/* CARRITO COMPLETO */
 
-.panel-carrito{
-position:fixed;
-top:0;
-right:-400px;
-width:350px;
-height:100%;
+.carrito{
+max-width:500px;
+margin:20px auto;
 background:white;
-box-shadow:-5px 0 15px rgba(0,0,0,0.2);
-transition:0.3s;
-display:flex;
-flex-direction:column;
-z-index:1000;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.15);
+display:none;
 }
 
-.panel-carrito.activo{
-right:0;
-}
-
-.carrito-header{
-display:flex;
-justify-content:space-between;
-padding:15px;
-border-bottom:1px solid #eee;
-font-weight:bold;
-}
-
-#listaCarrito{
-flex:1;
-overflow:auto;
-padding:10px;
+.carrito h2{
+margin-top:0;
 }
 
 .item{
 border-bottom:1px solid #eee;
-padding:10px;
+padding:10px 0;
 }
 
 .cantidad{
 display:flex;
-gap:5px;
+gap:10px;
 margin-top:5px;
+align-items:center;
 }
 
 .cantidad button{
@@ -78,11 +60,7 @@ background:#ddd;
 border:none;
 padding:5px 10px;
 cursor:pointer;
-}
-
-.carrito-footer{
-padding:15px;
-border-top:1px solid #eee;
+border-radius:5px;
 }
 
 .vaciar{
@@ -90,7 +68,7 @@ width:100%;
 background:#ff4d4d;
 color:white;
 border:none;
-padding:10px;
+padding:12px;
 border-radius:6px;
 margin-top:10px;
 cursor:pointer;
@@ -101,7 +79,7 @@ width:100%;
 background:#25D366;
 color:white;
 border:none;
-padding:10px;
+padding:12px;
 border-radius:6px;
 margin-top:10px;
 cursor:pointer;
@@ -116,6 +94,10 @@ border-radius:8px;
 cursor:pointer;
 }
 
+.producto{
+padding:20px;
+}
+
 </style>
 </head>
 
@@ -125,24 +107,19 @@ cursor:pointer;
 
 <!-- BOTON CARRITO -->
 
-<button class="boton-carrito" onclick="abrirCarrito()">
+<button class="boton-carrito" onclick="mostrarCarrito()">
 🛒 <span id="contador">0</span>
 </button>
 
-<!-- PANEL CARRITO -->
+<!-- CARRITO -->
 
-<div id="panelCarrito" class="panel-carrito">
+<div id="carrito" class="carrito">
 
-<div class="carrito-header">
-Tu carrito
-<button onclick="cerrarCarrito()">✕</button>
-</div>
+<h2>Tu carrito</h2>
 
 <div id="listaCarrito"></div>
 
-<div class="carrito-footer">
-
-<b>Total: $<span id="total">0</span></b>
+<h3>Total: $<span id="total">0</span></h3>
 
 <button class="vaciar" onclick="vaciarCarrito()">
 🗑 Vaciar carrito
@@ -154,11 +131,9 @@ Enviar pedido por WhatsApp
 
 </div>
 
-</div>
-
 <!-- PRODUCTO EJEMPLO -->
 
-<div style="padding:20px">
+<div class="producto">
 
 <h2>SUPERVIN 210 BLANCO OSTIÓN</h2>
 
@@ -174,12 +149,16 @@ Agregar al carrito
 
 let carrito=[]
 
-function abrirCarrito(){
-document.getElementById("panelCarrito").classList.add("activo")
+function mostrarCarrito(){
+
+let carritoDiv=document.getElementById("carrito")
+
+if(carritoDiv.style.display==="none"){
+carritoDiv.style.display="block"
+}else{
+carritoDiv.style.display="none"
 }
 
-function cerrarCarrito(){
-document.getElementById("panelCarrito").classList.remove("activo")
 }
 
 function agregarProducto(nombre,precio){
@@ -193,7 +172,7 @@ carrito.push({nombre,precio,cantidad:1})
 }
 
 actualizarCarrito()
-abrirCarrito()
+
 }
 
 function actualizarCarrito(){
@@ -216,7 +195,7 @@ lista.innerHTML+=`
 
 <b>${producto.nombre}</b><br>
 
-$${producto.precio}
+Precio: $${producto.precio}
 
 <div class="cantidad">
 
@@ -278,4 +257,5 @@ window.open(`https://wa.me/5217771537270?text=${mensaje}`)
 
 </body>
 </html>
+
 
