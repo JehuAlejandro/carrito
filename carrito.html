@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Pintumex</title>
+<title>Carrito | Pintumex</title>
 
 <style>
 
@@ -12,90 +12,87 @@ margin:0;
 background:#f5f5f5;
 }
 
-/* BOTON CARRITO */
+/* CONTENEDOR */
 
-.boton-carrito{
-position:fixed;
-top:20px;
-right:20px;
-background:#0aa84f;
-color:white;
-border:none;
-padding:12px 15px;
-border-radius:50px;
-font-size:18px;
-cursor:pointer;
-}
-
-/* CARRITO COMPLETO */
-
-.carrito{
+.contenedor{
 max-width:500px;
-margin:20px auto;
+margin:80px auto;
 background:white;
 padding:20px;
 border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,0.15);
-display:none;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
-.carrito h2{
+h2{
 margin-top:0;
 }
 
-.item{
-border-bottom:1px solid #eee;
+/* PRODUCTOS */
+
+.producto{
+border-bottom:1px solid #ddd;
 padding:10px 0;
 }
 
+.nombre{
+font-weight:bold;
+}
+
+.precio{
+color:#555;
+}
+
+/* BOTONES CANTIDAD */
+
 .cantidad{
 display:flex;
+align-items:center;
 gap:10px;
 margin-top:5px;
-align-items:center;
 }
 
 .cantidad button{
-background:#ddd;
+width:30px;
+height:30px;
 border:none;
-padding:5px 10px;
+background:#ddd;
 cursor:pointer;
 border-radius:5px;
+font-size:18px;
 }
+
+/* TOTAL */
+
+.total{
+font-size:20px;
+font-weight:bold;
+margin-top:15px;
+}
+
+/* BOTONES */
 
 .vaciar{
 width:100%;
+padding:12px;
+margin-top:15px;
+border:none;
 background:#ff4d4d;
 color:white;
-border:none;
-padding:12px;
+font-size:16px;
 border-radius:6px;
-margin-top:10px;
 cursor:pointer;
 }
 
 .whatsapp{
 width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
 background:#25D366;
 color:white;
-border:none;
-padding:12px;
+font-size:16px;
 border-radius:6px;
-margin-top:10px;
 cursor:pointer;
-}
-
-.agregar{
-background:#0aa84f;
-color:white;
-border:none;
-padding:12px;
-border-radius:8px;
-cursor:pointer;
-}
-
-.producto{
-padding:20px;
 }
 
 </style>
@@ -103,27 +100,15 @@ padding:20px;
 
 <body>
 
-<h1 style="padding:20px;">Pintumex</h1>
-
-<!-- BOTON CARRITO -->
-
-<button class="boton-carrito" onclick="mostrarCarrito()">
-🛒 <span id="contador">0</span>
-</button>
-
-<!-- CARRITO -->
-
-<div id="carrito" class="carrito">
+<div class="contenedor">
 
 <h2>Tu carrito</h2>
 
-<div id="listaCarrito"></div>
+<div id="carrito"></div>
 
-<h3>Total: $<span id="total">0</span></h3>
+<div class="total" id="total"></div>
 
-<button class="vaciar" onclick="vaciarCarrito()">
-🗑 Vaciar carrito
-</button>
+<button class="vaciar" onclick="vaciarCarrito()">🗑 Vaciar carrito</button>
 
 <button class="whatsapp" onclick="enviarWhatsApp()">
 Enviar pedido por WhatsApp
@@ -131,131 +116,99 @@ Enviar pedido por WhatsApp
 
 </div>
 
-<!-- PRODUCTO EJEMPLO -->
-
-<div class="producto">
-
-<h2>SUPERVIN 210 BLANCO OSTIÓN</h2>
-
-<p><b>$3176</b></p>
-
-<button class="agregar" onclick="agregarProducto('SUPERVIN 210 BLANCO OSTIÓN',3176)">
-Agregar al carrito
-</button>
-
-</div>
-
 <script>
 
-let carrito=[]
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+function guardar(){
+localStorage.setItem("carrito", JSON.stringify(carrito));
+}
 
 function mostrarCarrito(){
 
-let carritoDiv=document.getElementById("carrito")
+let contenedor = document.getElementById("carrito");
+let total = 0;
 
-if(carritoDiv.style.display==="none"){
-carritoDiv.style.display="block"
-}else{
-carritoDiv.style.display="none"
-}
+contenedor.innerHTML = "";
 
-}
+carrito.forEach((producto, index)=>{
 
-function agregarProducto(nombre,precio){
+let subtotal = producto.precio * producto.cantidad;
+total += subtotal;
 
-let producto=carrito.find(p=>p.nombre===nombre)
+contenedor.innerHTML += `
+<div class="producto">
 
-if(producto){
-producto.cantidad++
-}else{
-carrito.push({nombre,precio,cantidad:1})
-}
-
-actualizarCarrito()
-
-}
-
-function actualizarCarrito(){
-
-let lista=document.getElementById("listaCarrito")
-let total=0
-let contador=0
-
-lista.innerHTML=""
-
-carrito.forEach((producto,index)=>{
-
-let subtotal=producto.precio*producto.cantidad
-total+=subtotal
-contador+=producto.cantidad
-
-lista.innerHTML+=`
-
-<div class="item">
-
-<b>${producto.nombre}</b><br>
-
-Precio: $${producto.precio}
+<div class="nombre">${producto.nombre}</div>
+<div class="precio">Precio: $${producto.precio}</div>
 
 <div class="cantidad">
-
 <button onclick="cambiarCantidad(${index},-1)">-</button>
-
 ${producto.cantidad}
-
 <button onclick="cambiarCantidad(${index},1)">+</button>
-
 </div>
 
-Subtotal: $${subtotal}
+<div>Subtotal: $${subtotal}</div>
 
 </div>
+`;
 
-`
+});
 
-})
-
-document.getElementById("total").innerText=total
-document.getElementById("contador").innerText=contador
+document.getElementById("total").innerText="Total: $"+total;
 
 }
 
 function cambiarCantidad(index,cambio){
 
-carrito[index].cantidad+=cambio
+carrito[index].cantidad += cambio;
 
-if(carrito[index].cantidad<=0){
-carrito.splice(index,1)
+if(carrito[index].cantidad <=0){
+carrito.splice(index,1);
 }
 
-actualizarCarrito()
+guardar();
+mostrarCarrito();
 
 }
 
 function vaciarCarrito(){
 
-carrito=[]
-actualizarCarrito()
+carrito=[];
+guardar();
+mostrarCarrito();
 
 }
 
 function enviarWhatsApp(){
 
-let mensaje="Pedido Pintumex:%0A"
+let mensaje="Pedido:%0A";
+let total=0;
 
 carrito.forEach(p=>{
-mensaje+=`${p.nombre} x${p.cantidad} = $${p.precio*p.cantidad}%0A`
-})
 
-mensaje+=`Total: $${document.getElementById("total").innerText}`
+let subtotal=p.precio*p.cantidad;
 
-window.open(`https://wa.me/5217771537270?text=${mensaje}`)
+mensaje+=`${p.nombre}%0A`;
+mensaje+=`Cantidad: ${p.cantidad}%0A`;
+mensaje+=`Subtotal: $${subtotal}%0A%0A`;
+
+total+=subtotal;
+
+});
+
+mensaje+=`TOTAL: $${total}`;
+
+window.open(`https://wa.me/521XXXXXXXXXX?text=${mensaje}`);
 
 }
+
+mostrarCarrito();
 
 </script>
 
 </body>
 </html>
+
 
 
