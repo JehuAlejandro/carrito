@@ -2,94 +2,270 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>CH 14 3509 AZUL CANCUN</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CH 14 3509 AZULCANCUN MATE</title>
 
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
+*{
+  box-sizing:border-box;
 }
 
-.contenedor {
-  max-width: 500px;
-  margin: 20px auto;
-  background: #fff;
-  padding: 15px;
-  border-radius: 6px;
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:#ffffff;
 }
 
-h2 {
-  text-align: center;
+/* ===== HEADER ===== */
+.header{
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 5%;
+  background:white;
+  border-bottom:1px solid #eee;
 }
 
-button {
-  padding: 10px;
-  margin: 6px 0;
-  width: 100%;
-  cursor: pointer;
+.logo{
+  font-size:26px;
+  font-weight:800;
 }
 
-/* CONTADOR */
-.contador {
-  background: #3498db;
-  color: white;
-  text-align: center;
-  padding: 8px;
-  border-radius: 20px;
-  font-size: 16px;
-  margin-bottom: 12px;
+.carrito{
+  position:relative;
+  font-size:24px;
+  cursor:pointer;
+}
+
+.burbuja{
+  position:absolute;
+  top:-8px;
+  right:-10px;
+  background:red;
+  color:white;
+  font-size:12px;
+  padding:4px 8px;
+  border-radius:50%;
+}
+
+/* ===== SECCIÓN COMPLETA ===== */
+.seccion{
+  width:100%;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding:60px 5%;
+}
+
+.contenido{
+  width:100%;
+  display:flex;
+  gap:80px;
+}
+
+/* ===== COLUMNAS ===== */
+.col-img{
+  flex:1;
+}
+
+.col-info{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.imagen{
+  width:100%;
+  height:auto;
+}
+
+/* ===== TEXTO ===== */
+.badge{
+  background:#eaf2ff;
+  color:#2968c8;
+  display:inline-block;
+  padding:8px 15px;
+  border-radius:25px;
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:20px;
+}
+
+h1{
+  font-size:48px;
+  margin:0 0 15px 0;
+}
+
+.subtitulo{
+  font-size:18px;
+  color:#555;
+  margin-bottom:30px;
+}
+
+.precio{
+  font-size:54px;
+  font-weight:800;
+  color:#00a650;
+  margin-bottom:40px;
+}
+
+/* ===== BOTONES ===== */
+.btn{
+  width:100%;
+  padding:20px;
+  margin-bottom:20px;
+  border:none;
+  border-radius:14px;
+  font-size:18px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.btn-verde{
+  background:#00a650;
+  color:white;
+}
+
+.btn-verde:hover{
+  transform:translateY(-2px);
+}
+
+.btn-verde:active{
+  transform:scale(.98);
+}
+
+/* ===== INFO EXTRA ===== */
+.info{
+  display:flex;
+  gap:40px;
+  margin-top:20px;
+  font-size:15px;
+  color:#444;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .contenido{
+    flex-direction:column;
+  }
+
+  h1{
+    font-size:32px;
+  }
+
+  .precio{
+    font-size:38px;
+  }
+
+  .seccion{
+    padding:40px 5%;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="contenedor">
+<div class="header">
+  <div class="logo">Pintumex</div>
 
-<h2>🛒 CH 14 3509 AZUL CANCUN</h2>
-
-<!-- CONTADOR -->
-<div class="contador">
-🧺 Canasta: <span id="cantidad">0</span>
+  <div class="carrito" onclick="irCarrito()">
+    🛒
+    <div class="burbuja" id="contador">0</div>
+  </div>
 </div>
 
-<button onclick="agregar('CH 14 3509 AZUL CANCUN 18L', 520)">
-Agregar 18L – $520
-</button>
+<section class="seccion">
 
-</div>
+  <div class="contenido">
 
-<script>
+    <div class="col-img">
+      <img src="https://pintumex.com.mx/wp-content/uploads/Mock-Up-2025-CH14-Frente-19-L.png" class="imagen">
+    </div>
+
+    <div class="col-info">
+
+      <div class="badge">Línea Profesional</div>
+
+      <h1>CH 14 3509<br>CH 14 33508 3509 AZULCANCUN MATE</h1>
+
+      <div class="subtitulo">
+	Pintura vinílica de acabado mate terso.
+      </div>
+
+      <div class="precio">$520 MXN</div>
+
+      <button class="btn btn-verde" onclick="agregar('18L',520,this)">
+        🛒 Agregar 18L – $520
+      </button>
+
+
+      <div class="info">
+        <div>🚚 Envío Gratis</div>
+        <div>✔ Stock Disponible</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+=> total+=p.cantidad);
+  document.getElemen<script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-/* GUARDA */
-function guardarCarrito() {
+function guardar(){
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-/* CONTADOR */
-function actualizarContador() {
+function actualizar(){
   let total = 0;
-  for (let i = 0; i < carrito.length; i++) {
-    total += carrito[i].cantidad;
-  }
-  document.getElementById("cantidad").textContent = total;
+  carrito.forEach(p => total += p.cantidad);
+  document.getElementById("contador").textContent = total;
 }
 
-/* AGREGAR */
-function agregar(nombre, precio) {
-  const existe = carrito.find(p => p.nombre === nombre);
+function agregar(tamano, precio, boton){
 
-  if (existe) {
+  const nombreProducto = CH 14 3509 AZULCANCUN MATE";
+
+  const existe = carrito.find(p => 
+    p.nombre === nombreProducto && p.tamano === tamano
+  );
+
+  if(existe){
     existe.cantidad++;
-  } else {
-    carrito.push({ nombre, precio, cantidad: 1 });
+  }else{
+    carrito.push({
+      nombre: nombreProducto,
+      tamano: tamano,
+      precio: precio,
+      cantidad: 1
+    });
   }
 
-  guardarCarrito();
-  actualizarContador();
+  guardar();
+  actualizar();
+
+  const original = boton.innerHTML;
+  boton.innerHTML = "Agregado ✔";
+  boton.style.background = "#2968c8";
+
+  setTimeout(()=>{
+    boton.innerHTML = original;
+    boton.style.background = "#00a650";
+  }, 400);
 }
 
-/* 🔥 FUERZA ACTUALIZACIÓN AL CARGAR */
-actualizarContador();
+function irCarrito(){
+  window.location.href = "carrito.html";
+}
+
+actualizar();
 </script>
+
+</body>
+</html>
