@@ -216,7 +216,9 @@ h1{
 </section>
 
 => total+=p.cantidad);
-  document.getElemen<script>
+  document.getElemen
+<script>
+
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 function guardar(){
@@ -225,13 +227,17 @@ function guardar(){
 
 function actualizar(){
   let total = 0;
-  carrito.forEach(p => total += p.cantidad);
+
+  carrito.forEach(p=>{
+    total += p.cantidad;
+  });
+
   document.getElementById("contador").textContent = total;
 }
 
 function agregar(tamano, precio, boton){
 
-  const nombreProducto = 854IF IMPERFIBRA VERDE 5 AÑOS";
+  const nombreProducto = "854IF IMPERFIBRA VERDE 5 AÑOS";
 
   const existe = carrito.find(p => 
     p.nombre === nombreProducto && p.tamano === tamano
@@ -252,13 +258,15 @@ function agregar(tamano, precio, boton){
   actualizar();
 
   const original = boton.innerHTML;
+
   boton.innerHTML = "Agregado ✔";
   boton.style.background = "#2968c8";
 
   setTimeout(()=>{
     boton.innerHTML = original;
     boton.style.background = "#00a650";
-  }, 400);
+  },400);
+
 }
 
 function irCarrito(){
@@ -266,6 +274,7 @@ function irCarrito(){
 }
 
 actualizar();
+
 </script>
 
 </body>
