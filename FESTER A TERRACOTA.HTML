@@ -2,116 +2,207 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FESTER A TERRACOTA</title>
 
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#ffffff;
 }
 
-.contenedor {
-  max-width: 500px;
-  margin: 20px auto;
-  background: #fff;
-  padding: 15px;
-  border-radius: 6px;
+/* HEADER */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 5%;
+  border-bottom:1px solid #eee;
 }
 
-h2 {
-  text-align: center;
+.logo{
+  font-size:26px;
+  font-weight:bold;
 }
 
-button {
-  padding: 10px;
-  margin: 6px 0;
-  width: 100%;
-  cursor: pointer;
+.carrito{
+  position:relative;
+  font-size:24px;
+  cursor:pointer;
 }
 
-/* CONTADOR */
-.contador {
-  background: #3498db;
-  color: white;
-  text-align: center;
-  padding: 8px;
-  border-radius: 20px;
-  font-size: 16px;
-  margin-bottom: 12px;
+.burbuja{
+  position:absolute;
+  top:-8px;
+  right:-10px;
+  background:red;
+  color:white;
+  font-size:12px;
+  padding:4px 8px;
+  border-radius:50%;
+}
+
+/* SECCION */
+.seccion{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding:60px 5%;
+}
+
+.contenido{
+  display:flex;
+  gap:60px;
+  width:100%;
+}
+
+.col-img{flex:1;}
+.col-info{flex:1;}
+
+.imagen{width:100%;}
+
+/* TEXTO */
+h1{font-size:40px;margin:0 0 10px;}
+
+.subtitulo{
+  color:#555;
+  margin-bottom:20px;
+}
+
+.precio{
+  font-size:28px;
+  color:#00a650;
+  margin-bottom:20px;
+}
+
+/* BOTONES */
+.btn{
+  width:100%;
+  padding:15px;
+  margin:8px 0;
+  border:none;
+  border-radius:10px;
+  font-size:15px;
+  cursor:pointer;
+  background:#00a650;
+  color:white;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .contenido{flex-direction:column;}
 }
 </style>
 </head>
 
 <body>
 
-<div class="contenedor">
+<div class="header">
+  <div class="logo">Pintumex</div>
 
-<h2>🛒 FESTER A TERRACOTA</h2>
-
-<!-- CONTADOR -->
-<div class="contador">
-🧺 Canasta: <span id="cantidad">0</span>
+  <div class="carrito" onclick="irCarrito()">
+    🛒
+    <div class="burbuja" id="contador">0</div>
+  </div>
 </div>
 
-<button onclick="agregar('A 3 AÑOS TERRACOTA Cub 19L', 2025)">
-Agregar 3 AÑOS 19L – $2,025
-</button>
+<section class="seccion">
+<div class="contenido">
 
-<button onclick="agregar('A 5 AÑOS TERRACOTA Cub 19L', 2329)">
-Agregar 5 AÑOS 19L – $2,329
-</button>
+<!-- IMAGEN -->
+<div class="col-img">
+  <img src="https://dm.henkel-dam.com/is/image/henkel/Fester-Fibratado-blanco-19-L--2?wid=768&fmt=webp&qlt=85&fit=hfit%2C1" class="imagen">
+</div>
 
-<button onclick="agregar('A 5 AÑOS TERRACOTA FIBRATADO Cub 19L', 2543)">
-Agregar 5 AÑOS FIBRATADO 19L – $2,543
-</button>
+<!-- INFO -->
+<div class="col-info">
 
-<button onclick="agregar('A 7 AÑOS TERRACOTA Cub 19L', 2712)">
-Agregar 7 AÑOS 19L – $2,712
-</button>
+  <h1>FESTER A TERRACOTA</h1>
 
-<button onclick="agregar('A 3 AÑOS TERRACOTA Cub 4L', 476)">
-Agregar 3 AÑOS 4L – $476
-</button>
+  <div class="subtitulo">
+    Impermeabilizante Acrílico · Alta Duración
+  </div>
 
-<button onclick="agregar('A 5 AÑOS TERRACOTA Cub 4L', 552)">
-Agregar 5 AÑOS 4L – $552
-</button>
+  <div class="precio">Selecciona presentación</div>
+
+  <!-- PRODUCTOS -->
+
+  <button class="btn" onclick="agregar('A 5 AÑOS TERRACOTA FIBRATADO 19L',2543,this)">
+    🛒 A 5 AÑOS TERRACOTA FIBRATADO Cub 19L · $2,543
+  </button>
+
+  <button class="btn" onclick="agregar('A 7 AÑOS TERRACOTA 19L',2712,this)">
+    🛒 A 7 AÑOS TERRACOTA Cub 19L · $2,712
+  </button>
+
+  <button class="btn" onclick="agregar('A 3 AÑOS TERRACOTA 4L',476,this)">
+    🛒 A 3 AÑOS TERRACOTA Cub 4L · $476
+  </button>
+
+  <button class="btn" onclick="agregar('A 5 AÑOS TERRACOTA 4L',552,this)">
+    🛒 A 5 AÑOS TERRACOTA Cub 4L · $552
+  </button>
 
 </div>
+
+</div>
+</section>
 
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-/* GUARDA */
-function guardarCarrito() {
+function guardar(){
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-/* CONTADOR */
-function actualizarContador() {
+function actualizar(){
   let total = 0;
-  for (let i = 0; i < carrito.length; i++) {
-    total += carrito[i].cantidad;
-  }
-  document.getElementById("cantidad").textContent = total;
+  carrito.forEach(p => total += p.cantidad);
+  document.getElementById("contador").textContent = total;
 }
 
-/* AGREGAR */
-function agregar(nombre, precio) {
-  const existe = carrito.find(p => p.nombre === nombre);
+function agregar(tamano, precio, boton){
 
-  if (existe) {
+  const nombre = "FESTER A TERRACOTA";
+
+  const existe = carrito.find(p => 
+    p.nombre === nombre && p.tamano === tamano
+  );
+
+  if(existe){
     existe.cantidad++;
-  } else {
-    carrito.push({ nombre, precio, cantidad: 1 });
+  }else{
+    carrito.push({
+      nombre: nombre,
+      tamano: tamano,
+      precio: precio,
+      cantidad: 1
+    });
   }
 
-  guardarCarrito();
-  actualizarContador();
+  guardar();
+  actualizar();
+
+  const texto = boton.innerHTML;
+  boton.innerHTML = "Agregado ✔";
+
+  setTimeout(()=>{
+    boton.innerHTML = texto;
+  },500);
 }
 
-/* 🔥 FUERZA ACTUALIZACIÓN AL CARGAR */
-actualizarContador();
+function irCarrito(){
+  window.location.href = "carrito.html";
+}
+
+actualizar();
 </script>
 
 </body>
