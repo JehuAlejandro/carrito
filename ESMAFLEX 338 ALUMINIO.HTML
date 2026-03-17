@@ -198,7 +198,7 @@ h1{
 
       <div class="precio">$3,538 MXN</div>
 
-      <button class="btn btn-verde" onclick="agregar('19L'4680,this)">
+      <button class="btn btn-verde" onclick="agregar('19L',4680,this)">
         🛒 Agregar 19L – $4,680
       </button>
 
@@ -223,7 +223,9 @@ h1{
 </section>
 
 => total+=p.cantidad);
-  document.getElemen<script>
+  document.getElemen
+
+<script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 function guardar(){
@@ -238,7 +240,7 @@ function actualizar(){
 
 function agregar(tamano, precio, boton){
 
-  const nombreProducto = ESMAFLEX 338 ALUMINIO";
+  const nombreProducto = "ESMAFLEX 338 ALUMINIO";
 
   const existe = carrito.find(p => 
     p.nombre === nombreProducto && p.tamano === tamano
