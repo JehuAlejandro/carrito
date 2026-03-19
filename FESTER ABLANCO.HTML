@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,130 +7,171 @@
 <title>FESTER A BLANCO</title>
 
 <style>
+
 *{box-sizing:border-box;}
 
 body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#ffffff;
+margin:0;
+font-family:Arial;
+background:#ffffff;
 }
 
 /* HEADER */
+
 .header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:20px 5%;
-  border-bottom:1px solid #eee;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 5%;
+border-bottom:1px solid #eee;
 }
 
 .logo{
-  font-size:26px;
-  font-weight:bold;
+font-size:26px;
+font-weight:800;
 }
 
 .carrito{
-  position:relative;
-  font-size:24px;
-  cursor:pointer;
+position:relative;
+font-size:24px;
+cursor:pointer;
 }
 
 .burbuja{
-  position:absolute;
-  top:-8px;
-  right:-10px;
-  background:red;
-  color:white;
-  font-size:12px;
-  padding:4px 8px;
-  border-radius:50%;
+position:absolute;
+top:-8px;
+right:-10px;
+background:red;
+color:white;
+font-size:12px;
+padding:4px 8px;
+border-radius:50%;
 }
 
 /* SECCION */
+
 .seccion{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  padding:60px 5%;
+width:100%;
+min-height:100vh;
+display:flex;
+align-items:center;
+padding:60px 5%;
 }
 
 .contenido{
-  display:flex;
-  gap:60px;
-  width:100%;
+width:100%;
+display:flex;
+gap:60px;
 }
 
-.col-img{flex:1;}
-.col-info{flex:1;}
+/* COLUMNAS */
 
-.imagen{width:100%;}
-
-/* TEXTO */
-h1{font-size:40px;margin-bottom:10px;}
-
-.subtitulo{color:#555;margin-bottom:20px;}
-
-.precio{
-  font-size:28px;
-  color:#00a650;
-  margin-bottom:20px;
+.col-img{
+flex:1;
 }
 
-/* BOTONES */
+.col-info{
+flex:1;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+.imagen{
+width:100%;
+}
+
+/* TEXTOS */
+
+.badge{
+background:#eaf2ff;
+color:#2968c8;
+display:inline-block;
+padding:8px 15px;
+border-radius:25px;
+font-size:14px;
+margin-bottom:20px;
+}
+
+h1{
+font-size:42px;
+margin-bottom:10px;
+}
+
+.subtitulo{
+color:#555;
+margin-bottom:30px;
+}
+
 .btn{
-  width:100%;
-  padding:15px;
-  margin:8px 0;
-  border:none;
-  border-radius:10px;
-  font-size:15px;
-  cursor:pointer;
-  background:#00a650;
-  color:white;
+width:100%;
+padding:18px;
+margin-bottom:15px;
+border:none;
+border-radius:12px;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+background:#00a650;
+color:white;
+transition:.2s;
 }
 
 .btn:hover{
-  transform:translateY(-2px);
+transform:translateY(-2px);
 }
 
 /* RESPONSIVE */
+
 @media(max-width:900px){
-  .contenido{flex-direction:column;}
+
+.contenido{
+flex-direction:column;
 }
+
+h1{
+font-size:30px;
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="header">
-  <div class="logo">Pintumex</div>
 
-  <div class="carrito" onclick="irCarrito()">
-    🛒
-    <div class="burbuja" id="contador">0</div>
-  </div>
+<div class="logo">Pintumex</div>
+
+<div class="carrito" onclick="irCarrito()">
+🛒
+<div class="burbuja" id="contador">0</div>
 </div>
+
+</div>
+
 
 <section class="seccion">
+
 <div class="contenido">
 
-<!-- IMAGEN -->
 <div class="col-img">
-  <img src="https://dm.henkel-dam.com/is/image/henkel/Fester-Fibratado-blanco-19-L--2?wid=768&fmt=webp&qlt=85&fit=hfit%2C1" class="imagen">
+
+<img src="https://dm.henkel-dam.com/is/image/henkel/Fester-Fibratado-blanco-19-L--2?wid=768&fmt=webp&qlt=85&fit=hfit%2C1" class="imagen" class="imagen">
+
 </div>
 
-<!-- INFO -->
 <div class="col-info">
 
-  <h1>FESTER A BLANCO</h1>
+<div class="badge">Línea Profesional</div>
 
-  <div class="subtitulo">
-    Impermeabilizante Acrílico · Alta Duración
-  </div>
+<h1>FESTER A BLANCO</h1>
 
-  <div class="precio">Selecciona presentación</div>
-
-  <!-- PRODUCTOS -->
+<div class="subtitulo">
+Impermeabilizante acrílico elastomérico base agua de secado rápido
+</div>
 
   <button class="btn" onclick="agregar('A 3 AÑOS BLANCO Cub 19L',2025,this)">
     🛒 A 3 AÑOS BLANCO Cub 19L – $2,025
@@ -155,64 +197,79 @@ h1{font-size:40px;margin-bottom:10px;}
     🛒 A 5 AÑOS BLANCO Cub 4L – $552
   </button>
 
+ 
 </div>
-<div class="info">
+ <div class="info">
         <div>🚚 Envío Gratis</div>
         <div>✔ Stock Disponible</div>
       </div>
 </div>
+
 </section>
 
+
 <script>
+
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 function guardar(){
-  localStorage.setItem("carrito", JSON.stringify(carrito));
+
+localStorage.setItem("carrito", JSON.stringify(carrito));
+
 }
 
 function actualizar(){
-  let total = 0;
-  carrito.forEach(p => total += p.cantidad);
-  document.getElementById("contador").textContent = total;
+
+let total = 0;
+
+carrito.forEach(p => total += p.cantidad);
+
+document.getElementById("contador").textContent = total;
+
 }
 
-function agregar(tamano, precio, boton){
+function agregar(nombre, precio, boton){
 
-  const nombre = "FESTER A BLANCO";
+const existe = carrito.find(p => p.nombre === nombre);
 
-  const existe = carrito.find(p => 
-    p.nombre === nombre && p.tamano === tamano
-  );
+if(existe){
 
-  if(existe){
-    existe.cantidad++;
-  }else{
-    carrito.push({
-      nombre: nombre,
-      tamano: tamano,
-      precio: precio,
-      cantidad: 1
-    });
-  }
+existe.cantidad++;
 
-  guardar();
-  actualizar();
+}else{
 
-  const texto = boton.innerHTML;
-  boton.innerHTML = "Agregado ✔";
+carrito.push({
 
-  setTimeout(()=>{
-    boton.innerHTML = texto;
-  },500);
+nombre:nombre,
+precio:precio,
+cantidad:1
+
+});
+
+}
+
+guardar();
+actualizar();
+
+const original = boton.innerHTML;
+
+boton.innerHTML = "Agregado ✔";
+
+setTimeout(()=>{
+
+boton.innerHTML = original;
+
+},600);
+
 }
 
 function irCarrito(){
-  window.location.href = "carrito.html";
-}
 
+window.location.href = "carrito.html";
+
+}
 actualizar();
 </script>
-
 </body>
 </html>
 
