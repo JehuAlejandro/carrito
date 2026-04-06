@@ -1,3 +1,8 @@
+//ICONO DE MENU ELIMINADO
+.elementor-widget-off-canvas,
+a[href*="off_canvas"] {
+    display: none !important;
+}
 /* cyrillic-ext */
 @font-face {
   font-family: 'Montserrat';
