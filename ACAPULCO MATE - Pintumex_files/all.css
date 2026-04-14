@@ -3,7 +3,17 @@
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2024 Fonticons, Inc.
  */
+.product-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
 
+.product-image img {
+  max-height: 100%;
+  object-fit: contain;
+}
 .flex-control-nav {
     display: none !important;
 }
