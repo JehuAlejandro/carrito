@@ -3,6 +3,10 @@
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2024 Fonticons, Inc.
  */
+.flex-viewport,
+.woocommerce-product-gallery__wrapper {
+    display: none !important;
+}
 .flex-viewport 
 { display: none; }
 .woocommerce-product-gallery {
