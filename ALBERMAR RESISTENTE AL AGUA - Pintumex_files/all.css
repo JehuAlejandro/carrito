@@ -3,6 +3,31 @@
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2024 Fonticons, Inc.
  */
+.flex-control-nav,
+.flex-control-thumbs {
+    display: none !important;
+}
+
+/* Quitar altura forzada del contenedor */
+.flex-viewport {
+    height: auto !important;
+}
+
+/* Evitar que el carrusel se mueva */
+.woocommerce-product-gallery__wrapper {
+    transform: none !important;
+    width: 100% !important;
+}
+
+/* Mostrar solo la primera imagen */
+.woocommerce-product-gallery__image:not(:first-child) {
+    display: none !important;
+}
+.woocommerce-product-gallery {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
 .elementor-widget-off-canvas,
 a[href*="off_canvas"] {
     display: none !important;
