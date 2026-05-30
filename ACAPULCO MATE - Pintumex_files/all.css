@@ -4,6 +4,10 @@
  * Copyright 2024 Fonticons, Inc.
  */
 .flex-control-nav,
+.elementor-widget-off-canvas,
+a[href*="off_canvas"] {
+    display: none !important;
+}
 .flex-control-thumbs {
     display: none !important;
 }
